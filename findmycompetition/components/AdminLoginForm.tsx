@@ -98,11 +98,6 @@ export default function AdminLoginForm() {
             </button>
           </form>
 
-          <div className="mt-6 pt-4 border-t border-slate-100 text-center">
-            <p className="text-[11px] text-slate-400">
-              Default password: <code className="font-mono text-indigo-600 font-bold">admin123</code> (dapat diatur via <code className="text-slate-600">ADMIN_PASSWORD</code> di <code className="text-slate-600">.env</code>).
-            </p>
-          </div>
         </div>
       </div>
     </div>
