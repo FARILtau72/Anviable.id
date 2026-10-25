@@ -224,3 +224,63 @@ sudo certbot --nginx -d naviable.id -d www.naviable.id
 ```
 
 Selesai! Website Naviable.id kini aktif di HTTPS dengan proteksi kredensial penuh.
+
+---
+
+## 🔄 7. Cara Update Kode Terbaru di VPS (Maintenance / Pull Update)
+
+Jika repository di GitHub sudah diperbarui dan Anda ingin menerapkan pembaruan tersebut ke VPS yang sudah pernah di-clone:
+
+### Langkah 1: Masuk ke direktori dan tarik kode terbaru
+```bash
+cd ~/anviable
+git pull origin main
+```
+> **Catatan:** File `.env` Anda tetap aman dan tidak akan tertimpa atau hilang karena sudah terdaftar di `.gitignore`.
+
+---
+
+### Langkah 2A: Jika Menggunakan Docker Compose (Opsi A)
+Jalankan rebuild dan update container secara otomatis:
+```bash
+cd ~/anviable
+docker compose up -d --build
+```
+> Docker akan mendeteksi layer yang berubah, membangun ulang image Next.js / Python, lalu me-restart container tanpa memutus database eksternal TiDB.
+
+---
+
+### Langkah 2B: Jika Menggunakan PM2 / Bare Metal (Opsi B)
+Jalankan langkah build ulang dan restart service:
+
+```bash
+# 1. Update dependency & build Next.js
+cd ~/anviable/findmycompetition
+npm install
+npm run build
+
+# 2. Update dependency crawler (jika ada requirements baru)
+cd ~/anviable/crawler_service
+source venv/bin/activate
+pip install -r requirements.txt
+deactivate
+
+# 3. Restart semua proses di PM2
+cd ~/anviable
+pm2 restart all
+```
+
+---
+
+### 💡 Tips Tambahan jika Mengalami Masalah Saat Git Pull
+
+Jika Anda sempat mengedit file langsung di VPS dan terjadi conflict saat `git pull`:
+```bash
+# Simpan sementara atau batalkan editan lokal di VPS:
+git stash
+git pull origin main
+
+# Atau jika ingin memaksa menimpa dengan versi terbaru dari GitHub:
+git fetch origin
+git reset --hard origin/main
+```
