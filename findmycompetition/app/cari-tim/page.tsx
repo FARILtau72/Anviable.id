@@ -17,7 +17,7 @@ import {
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Cari Rekan Tim Lomba & Hackathon Pelajar SMA/SMK : anviable.id",
+  title: "Cari Rekan Tim Lomba & Hackathon Pelajar SMA/SMK : naviable.id",
   description:
     "Temukan partner tim tangguh untuk Hackathon, LKTI, LKS SMK, dan Olimpiade. Rekrut anggota dengan keahlian spesifik atau tawarkan skill-mu sebagai free agent.",
 };
@@ -26,13 +26,24 @@ export default async function CariTimPage() {
   await connection();
   await ensureMatchmakingTables();
 
-  const teams = await withDbRetry(() =>
+  const rawTeams = await withDbRetry(() =>
     db.select().from(teamPostings).orderBy(desc(teamPostings.createdAt))
   );
 
-  const talents = await withDbRetry(() =>
+  const rawTalents = await withDbRetry(() =>
     db.select().from(talentProfiles).orderBy(desc(talentProfiles.createdAt))
   );
+
+  // Security sanitize: strip managePin from client payload
+  const teams = (rawTeams || []).map((t) => {
+    const { managePin, ...rest } = t;
+    return { ...rest, managePin: "" };
+  });
+
+  const talents = (rawTalents || []).map((tal) => {
+    const { managePin, ...rest } = tal;
+    return { ...rest, managePin: "" };
+  });
 
   return (
     <div className="space-y-10 pb-16">
@@ -86,7 +97,7 @@ export default async function CariTimPage() {
           Panduan Kolaborasi Tim
         </span>
         <h2 className="text-xl font-black text-slate-900 sm:text-2xl">
-          3 Kunci Membangun Tim Juara di anviable.id
+          3 Kunci Membangun Tim Juara di naviable.id
         </h2>
         <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-3">
           <div className="space-y-2">
@@ -117,7 +128,7 @@ export default async function CariTimPage() {
             </div>
             <h3 className="font-bold text-slate-900 text-sm">Tautkan ke Lomba Terverifikasi</h3>
             <p className="text-xs text-slate-500 leading-relaxed">
-              Pilih kompetisi resmi terakreditasi BPTI atau kampus terpercaya di katalog anviable.id
+              Pilih kompetisi resmi terakreditasi BPTI atau kampus terpercaya di katalog naviable.id
               agar sertifikat kemenangan dapat diakui di pendaftaran SNBP & Beasiswa.
             </p>
           </div>

@@ -4,14 +4,14 @@ import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
 import crypto from "crypto";
 
-const COOKIE_NAME = "anviable_admin_session";
+const COOKIE_NAME = "naviable_admin_session";
 const SESSION_TTL_MS = 1000 * 60 * 60 * 24 * 7; // 7 days
 
 function getSigningKey(): string {
   return (
     process.env.ADMIN_SESSION_SECRET ||
     process.env.ADMIN_PASSWORD ||
-    "anviable_fallback_signing_secret_dev_2026"
+    "naviable_fallback_signing_secret_dev_2026"
   );
 }
 

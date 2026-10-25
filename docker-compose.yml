@@ -3,7 +3,7 @@ services:
     build:
       context: ./findmycompetition
       dockerfile: Dockerfile
-    container_name: anviable_web
+    container_name: naviable_web
     restart: always
     ports:
       - "3000:3000"
@@ -12,21 +12,21 @@ services:
     environment:
       - NODE_ENV=production
     networks:
-      - anviable_net
+      - naviable_net
 
   crawler:
     build:
       context: ./crawler_service
       dockerfile: Dockerfile
-    container_name: anviable_crawler
+    container_name: naviable_crawler
     restart: always
     ports:
       - "8000:8000"
     env_file:
       - ./crawler_service/.env
     networks:
-      - anviable_net
+      - naviable_net
 
 networks:
-  anviable_net:
+  naviable_net:
     driver: bridge

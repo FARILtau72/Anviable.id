@@ -8,6 +8,8 @@ import {
   FileText,
   Palette,
   Mic,
+  GraduationCap,
+  ArrowRight,
 } from "lucide-react";
 import type { Category } from "@/db/schema";
 
@@ -159,6 +161,35 @@ export default function CategoryGrid({ categoryCounts = {} }: CategoryGridProps)
             </button>
           );
         })}
+      </div>
+
+      {/* Zona Khusus SMK Spotlight Banner */}
+      <div className="rounded-2xl border border-amber-200 bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50/50 p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-xs">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500 text-white shrink-0 shadow-xs">
+            <GraduationCap className="h-5 w-5" />
+          </div>
+          <div>
+            <h4 className="text-xs sm:text-sm font-bold text-slate-900 flex items-center gap-2">
+              <span>Siswa SMK? Temukan Lomba Sesuai Jurusanmu dengan Filter 2-Tier!</span>
+              <span className="hidden sm:inline-block rounded-full bg-amber-200/80 px-2 py-0.5 text-[10px] font-black text-amber-900">
+                Fitur Unggulan
+              </span>
+            </h4>
+            <p className="text-[11px] text-slate-600 mt-0.5">
+              Saring kompetisi berdasarkan jurusan kejuruan spesifikmu (RPL, TKJ, DKV, Akuntansi, Mesin) dan kurasi penyelenggara resmi (Puspresnas / Politeknik Negeri).
+            </p>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          onClick={() => router.push("/smk")}
+          className="btn-coral inline-flex items-center gap-1.5 rounded-xl px-4 py-2 text-xs font-bold text-white shadow-xs shrink-0 cursor-pointer"
+        >
+          <span>Buka Zona SMK</span>
+          <ArrowRight className="h-3.5 w-3.5" />
+        </button>
       </div>
     </section>
   );

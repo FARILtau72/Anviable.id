@@ -39,7 +39,7 @@ export default function AdminLoginForm() {
               Akses Panel Moderasi
             </h1>
             <p className="text-xs text-slate-500 max-w-xs mx-auto">
-              Halaman ini dibatasi hanya untuk kurator & pengelola anviable.id.
+              Halaman ini dibatasi hanya untuk kurator & pengelola naviable.id.
             </p>
           </div>
 

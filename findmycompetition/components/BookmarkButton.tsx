@@ -5,9 +5,9 @@ import { Bookmark, BookmarkCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Category, Level } from "@/db/schema";
 
-const STORAGE_KEY = "anviable_saved";
-const LEGACY_STORAGE_KEY = "lombahub_saved";
-const EVENT_NAME = "anviable_bookmark_change";
+const STORAGE_KEY = "naviable_saved";
+const LEGACY_STORAGE_KEYS = ["anviable_saved", "lombahub_saved"];
+const EVENT_NAME = "naviable_bookmark_change";
 
 export interface BookmarkData {
   id: string;
@@ -25,8 +25,17 @@ export interface BookmarkData {
 function getBookmarks(): BookmarkData[] {
   if (typeof window === "undefined") return [];
   try {
-    const raw = localStorage.getItem(STORAGE_KEY) || localStorage.getItem(LEGACY_STORAGE_KEY) || "[]";
-    return JSON.parse(raw);
+    let raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) {
+      for (const legacy of LEGACY_STORAGE_KEYS) {
+        const found = localStorage.getItem(legacy);
+        if (found) {
+          raw = found;
+          break;
+        }
+      }
+    }
+    return JSON.parse(raw || "[]");
   } catch {
     return [];
   }

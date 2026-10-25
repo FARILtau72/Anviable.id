@@ -89,6 +89,7 @@ export const teamPostings = mysqlTable(
     membersCount: int("members_count").default(1).notNull(),
     maxMembers: int("max_members").default(3).notNull(),
     status: varchar("status", { length: 20 }).default("OPEN").notNull(),
+    managePin: varchar("manage_pin", { length: 20 }).default("1234").notNull(),
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
   (table) => ({
@@ -117,6 +118,7 @@ export const talentProfiles = mysqlTable(
     contactChannel: varchar("contact_channel", { length: 50 }).default("WHATSAPP").notNull(),
     contactInfo: varchar("contact_info", { length: 255 }).notNull(),
     status: varchar("status", { length: 20 }).default("AVAILABLE").notNull(),
+    managePin: varchar("manage_pin", { length: 20 }).default("1234").notNull(),
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
   (table) => ({

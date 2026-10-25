@@ -13,7 +13,7 @@ def test_health_check():
     assert response.status_code == 200
     data = response.json()
     assert data["status"] in ("healthy", "degraded")
-    assert data["service"] == "anviable-crawler-engine"
+    assert data["service"] == "naviable-crawler-engine"
 
 
 def test_get_staging_competitions():

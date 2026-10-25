@@ -3,9 +3,9 @@ import { ShieldCheck, FileText, ArrowLeft, CheckCircle2, AlertCircle } from "luc
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Syarat & Ketentuan Layanan : anviable.id",
+  title: "Syarat & Ketentuan Layanan : naviable.id",
   description:
-    "Syarat dan ketentuan penggunaan platform anviable.id untuk pelajar SMA/SMK/MA dan penyelenggara kompetisi di seluruh Indonesia.",
+    "Syarat dan ketentuan penggunaan platform naviable.id untuk pelajar SMA/SMK/MA dan penyelenggara kompetisi di seluruh Indonesia.",
 };
 
 export default function SyaratKetentuanPage() {
@@ -33,7 +33,7 @@ export default function SyaratKetentuanPage() {
         </h1>
         <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed">
           Terakhir diperbarui: 24 Oktober 2026. Mohon membaca ketentuan berikut sebelum memanfaatkan
-          layanan kurasi direktori kompetisi dan matchmaking tim di anviable.id.
+          layanan kurasi direktori kompetisi dan matchmaking tim di naviable.id.
         </p>
       </section>
 
@@ -46,7 +46,7 @@ export default function SyaratKetentuanPage() {
             Pendahuluan & Definisi
           </h2>
           <p>
-            Selamat datang di <strong>anviable.id</strong>. Platform ini dikembangkan sebagai sarana agregator informasi, direktori kompetisi akademik maupun non-akademik, serta fasilitas pencarian rekan tim kolaborasi yang ditujukan secara khusus bagi siswa SMA, SMK, MA, dan guru pembimbing di seluruh wilayah Republik Indonesia.
+            Selamat datang di <strong>naviable.id</strong>. Platform ini dikembangkan sebagai sarana agregator informasi, direktori kompetisi akademik maupun non-akademik, serta fasilitas pencarian rekan tim kolaborasi yang ditujukan secara khusus bagi siswa SMA, SMK, MA, dan guru pembimbing di seluruh wilayah Republik Indonesia.
           </p>
           <p>
             Dengan mengakses situs ini, Anda menyatakan setuju untuk terikat dengan Syarat dan Ketentuan ini. Jika Anda tidak menyetujui ketentuan ini, Anda disarankan untuk tidak melanjutkan penggunaan situs.
@@ -62,12 +62,12 @@ export default function SyaratKetentuanPage() {
             Akses Informasi Bebas Biaya (Tanpa Pungutan)
           </h2>
           <p>
-            Seluruh siswa, guru pembimbing, dan masyarakat umum dapat mengakses seluruh katalog lomba, mengunduh tautan petunjuk teknis (Juknis), menyimpan bookmark kompetisi, dan menggunakan sinkronisasi kalender di anviable.id secara <strong>100% gratis tanpa biaya langganan</strong>.
+            Seluruh siswa, guru pembimbing, dan masyarakat umum dapat mengakses seluruh katalog lomba, mengunduh tautan petunjuk teknis (Juknis), menyimpan bookmark kompetisi, dan menggunakan sinkronisasi kalender di naviable.id secara <strong>100% gratis tanpa biaya langganan</strong>.
           </p>
           <div className="rounded-2xl border border-emerald-200 bg-emerald-50/60 p-4 text-xs sm:text-sm text-emerald-800 flex items-start gap-3">
             <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
             <p>
-              anviable.id tidak pernah memungut biaya pendaftaran atas nama platform kami secara sepihak. Segala biaya pendaftaran lomba (jika ada) disetorkan langsung kepada panitia penyelenggara resmi yang tercantum dalam Juknis.
+              naviable.id tidak pernah memungut biaya pendaftaran atas nama platform kami secara sepihak. Segala biaya pendaftaran lomba (jika ada) disetorkan langsung kepada panitia penyelenggara resmi yang tercantum dalam Juknis.
             </p>
           </div>
         </section>
@@ -87,7 +87,7 @@ export default function SyaratKetentuanPage() {
             <li>Menyediakan informasi yang valid, transparan, dan tidak menyesatkan.</li>
             <li>Melampirkan tautan berkas panduan teknis resmi (Juknis/Rulebook) dan kanal kontak panitia yang aktif.</li>
             <li>Kompetisi tidak mengandung unsur penipuan, skema piramida/MLM, konten perjudian, pornografi, maupun SARA.</li>
-            <li>Tim kurator anviable.id berhak menolak atau menghapus publikasi lomba yang dinilai melanggar etika edukasi dan keselamatan siswa.</li>
+            <li>Tim kurator naviable.id berhak menolak atau menghapus publikasi lomba yang dinilai melanggar etika edukasi dan keselamatan siswa.</li>
           </ul>
         </section>
 
@@ -105,7 +105,7 @@ export default function SyaratKetentuanPage() {
           <ul className="list-disc pl-5 space-y-2 text-slate-600 text-xs sm:text-sm">
             <li>Pengguna dilarang menyalahgunakan kontak rekan tim untuk tujuan spamming, promosi komersial di luar lomba, maupun pelecehan.</li>
             <li>Pengguna bertanggung jawab penuh atas komitmen dan komunikasi yang disepakati bersama anggota tim yang terbentuk.</li>
-            <li>anviable.id bertindak sebagai fasilitator penghubung dan tidak bertanggung jawab atas perselisihan internal antara anggota tim.</li>
+            <li>naviable.id bertindak sebagai fasilitator penghubung dan tidak bertanggung jawab atas perselisihan internal antara anggota tim.</li>
           </ul>
         </section>
 
@@ -123,7 +123,7 @@ export default function SyaratKetentuanPage() {
               Klarifikasi Hubungan Pihak Ketiga:
             </p>
             <p>
-              Poster lomba, logo institusi, dan merek dagang penyelenggara yang dimuat di anviable.id merupakan hak milik sah dari masing-masing penyelenggara kompetisi bersangkutan. anviable.id menampilkan materi tersebut untuk tujuan diseminasi informasi edukasi non-komersial bagi pelajar.
+              Poster lomba, logo institusi, dan merek dagang penyelenggara yang dimuat di naviable.id merupakan hak milik sah dari masing-masing penyelenggara kompetisi bersangkutan. naviable.id menampilkan materi tersebut untuk tujuan diseminasi informasi edukasi non-komersial bagi pelajar.
             </p>
           </div>
         </section>

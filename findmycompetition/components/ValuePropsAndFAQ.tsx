@@ -51,11 +51,11 @@ const VALUE_PROPS = [
 
 const FAQS = [
   {
-    q: "Apakah semua lomba di anviable.id dapat diikuti secara gratis?",
+    q: "Apakah semua lomba di naviable.id dapat diikuti secara gratis?",
     a: "Tidak semua, namun kami menyediakan filter khusus '100% Gratis'. Mayoritas lomba prestisius pemerintah (seperti OSN, LKS, dan FLS2N) tidak memungut biaya pendaftaran sama sekali.",
   },
   {
-    q: "Apakah sertifikat lomba di anviable.id diakui untuk SNBP atau Beasiswa?",
+    q: "Apakah sertifikat lomba di naviable.id diakui untuk SNBP atau Beasiswa?",
     a: "Ya! Kompetisi tingkat nasional dan provinsi yang diadakan oleh kementerian (BPTI/Puspresnas) maupun Perguruan Tinggi Negeri terakreditasi memiliki poin sertifikat yang sah untuk pendaftaran SNBP, SIMAK UI, SNBT, dan Beasiswa Indonesia Maju (BIM).",
   },
   {
@@ -64,7 +64,7 @@ const FAQS = [
   },
   {
     q: "Apakah organisasi atau sekolah kami dapat mendaftarkan lomba baru?",
-    a: "Sangat bisa! Silakan buka halaman 'Ajukan Lomba', isi formulir informasi kompetisi, juknis, dan kontak panitia. Tim kurator anviable.id akan memverifikasi dalam kurun waktu 1x24 jam sebelum dipublikasikan.",
+    a: "Sangat bisa! Silakan buka halaman 'Ajukan Lomba', isi formulir informasi kompetisi, juknis, dan kontak panitia. Tim kurator naviable.id akan memverifikasi dalam kurun waktu 1x24 jam sebelum dipublikasikan.",
   },
 ];
 
@@ -81,7 +81,7 @@ export default function ValuePropsAndFAQ() {
             Standar Kurasi Terbaik
           </div>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-            Mengapa Pelajar Memilih <span className="gradient-text">anviable.id</span>?
+            Mengapa Pelajar Memilih <span className="gradient-text">naviable.id</span>?
           </h2>
           <p className="text-xs sm:text-sm text-slate-400">
             Platform yang dirancang khusus untuk mempermudah siswa dan guru pembimbing menemukan ajang prestasi terbaik.
@@ -157,7 +157,7 @@ export default function ValuePropsAndFAQ() {
             Frequently Asked Questions
           </h2>
           <p className="text-xs sm:text-sm text-slate-400">
-            Informasi penting seputar pendaftaran dan legalitas kompetisi di anviable.id
+            Informasi penting seputar pendaftaran dan legalitas kompetisi di naviable.id
           </p>
         </div>
 

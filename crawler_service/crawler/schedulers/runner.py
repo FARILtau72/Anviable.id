@@ -1,4 +1,3 @@
-"""Periodic crawl scheduler using APScheduler and Scrapy CrawlerProcess."""
 
 import logging
 from apscheduler.schedulers.blocking import BlockingScheduler
@@ -7,7 +6,7 @@ from scrapy.utils.project import get_project_settings
 from crawler.spiders.sample_competition_spider import PuspresnasSampleSpider
 
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("anviable.scheduler")
+logger = logging.getLogger("naviable.scheduler")
 
 
 def run_scheduled_crawls():
@@ -33,7 +32,7 @@ def start_scheduler():
         replace_existing=True,
     )
 
-    logger.info("Anviable Crawler Scheduler started (interval: 12h). Press Ctrl+C to exit.")
+    logger.info("Naviable Crawler Scheduler started (interval: 12h). Press Ctrl+C to exit.")
     try:
         scheduler.start()
     except (KeyboardInterrupt, SystemExit):

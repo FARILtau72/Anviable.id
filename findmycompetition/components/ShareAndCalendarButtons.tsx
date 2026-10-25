@@ -29,7 +29,7 @@ export default function ShareAndCalendarButtons({
   const pageUrl =
     typeof window !== "undefined"
       ? `${window.location.origin}/lomba/${slug}`
-      : `https://anviable.id/lomba/${slug}`;
+      : `https://naviable.id/lomba/${slug}`;
 
   const whatsappText = encodeURIComponent(
     `🏆 ${title}\n\n📅 Deadline: ${new Date(deadlineDate).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" })}\n\n🔗 Info & Daftar: ${pageUrl}`

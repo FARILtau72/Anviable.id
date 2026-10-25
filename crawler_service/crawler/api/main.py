@@ -1,4 +1,4 @@
-"""FastAPI service for Anviable Crawler Engine management and Next.js integration."""
+"""FastAPI service for Naviable Crawler Engine management and Next.js integration."""
 
 import os
 from contextlib import asynccontextmanager
@@ -23,7 +23,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="Anviable.id Crawler Service API",
+    title="Naviable.id Crawler Service API",
     version="0.1.0",
     description="REST API for managing crawled competitions staging, moderation approvals, and metrics.",
     lifespan=lifespan,
@@ -50,7 +50,7 @@ def health_check(db: Session = Depends(get_db_session)):
 
     return {
         "status": "healthy" if db_status == "connected" else "degraded",
-        "service": "anviable-crawler-engine",
+        "service": "naviable-crawler-engine",
         "database": db_status,
     }
 
@@ -112,7 +112,7 @@ def get_staging_competitions(
 
 @app.post("/api/competitions/{item_id}/approve")
 def approve_competition(item_id: str, db: Session = Depends(get_db_session)):
-    """Approve a staged competition for publication into Anviable.id core directory."""
+    """Approve a staged competition for publication into Naviable.id core directory."""
     item = db.query(CrawledCompetitionStaging).filter_by(id=item_id).first()
     if not item:
         raise HTTPException(status_code=404, detail="Staged competition not found")

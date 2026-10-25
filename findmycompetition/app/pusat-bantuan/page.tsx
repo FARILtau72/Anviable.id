@@ -23,12 +23,12 @@ const FAQS_HELP = [
     category: "UNTUK SISWA & PELAJAR",
     items: [
       {
-        q: "Bagaimana cara mendaftar lomba yang saya temukan di anviable.id?",
+        q: "Bagaimana cara mendaftar lomba yang saya temukan di naviable.id?",
         a: "Klik tombol 'Daftar Sekarang' pada halaman rincian lomba yang Anda pilih. Anda akan langsung diarahkan ke formulir resmi panitia (Google Form, website kampus, atau portal registrasi kementerian). Pastikan membaca buku panduan teknis (Juknis) yang juga telah kami sediakan tautan unduhannya.",
       },
       {
-        q: "Apakah seluruh lomba di anviable.id aman dari penipuan (scam)?",
-        a: "Ya. Setiap lomba yang tampil berstatus 'Terverifikasi' telah melalui kurasi manual oleh tim kurator anviable.id untuk memastikan kredibilitas penyelenggara, kejelasan kontak panitia, dan legalitas juknis sebelum ditayangkan.",
+        q: "Apakah seluruh lomba di naviable.id aman dari penipuan (scam)?",
+        a: "Ya. Setiap lomba yang tampil berstatus 'Terverifikasi' telah melalui kurasi manual oleh tim kurator naviable.id untuk memastikan kredibilitas penyelenggara, kejelasan kontak panitia, dan legalitas juknis sebelum ditayangkan.",
       },
       {
         q: "Bagaimana cara menggunakan fitur simpan kalender agar tidak ketinggalan deadline?",
@@ -44,8 +44,8 @@ const FAQS_HELP = [
     category: "UNTUK PANITIA & PENYELENGGARA",
     items: [
       {
-        q: "Apakah memasang info lomba di anviable.id dipungut biaya?",
-        a: "Pemasangan informasi kompetisi reguler di anviable.id adalah 100% GRATIS untuk seluruh OSIS, BEM, organisasi pelajar/mahasiswa, kementerian, dan instansi pendidikan di Indonesia.",
+        q: "Apakah memasang info lomba di naviable.id dipungut biaya?",
+        a: "Pemasangan informasi kompetisi reguler di naviable.id adalah 100% GRATIS untuk seluruh OSIS, BEM, organisasi pelajar/mahasiswa, kementerian, dan instansi pendidikan di Indonesia.",
       },
       {
         q: "Berapa lama waktu verifikasi submisi lomba hingga terbit di katalog?",
@@ -99,7 +99,7 @@ export default function PusatBantuanPage() {
           <span>Layanan Bantuan & Dukungan</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-slate-900">
-          Pusat Bantuan anviable.id
+          Pusat Bantuan naviable.id
         </h1>
         <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed">
           Temukan jawaban atas pertanyaan seputar partisipasi kompetisi, publikasi lomba,
@@ -214,10 +214,10 @@ export default function PusatBantuanPage() {
               Pertanyaan umum, laporan kompetisi tidak valid, atau kendala teknis.
             </p>
             <a
-              href="mailto:halo@anviable.id"
+              href="mailto:halo@naviable.id"
               className="inline-block text-xs font-bold text-indigo-600 hover:underline pt-1"
             >
-              halo@anviable.id
+              halo@naviable.id
             </a>
           </div>
 
@@ -249,7 +249,7 @@ export default function PusatBantuanPage() {
           {formSent ? (
             <div className="flex items-center gap-2 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-xs font-bold text-emerald-800 animate-fade-in">
               <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0" />
-              <span>Terima kasih! Pesan bantuan Anda telah terkirim ke tim kurator anviable.id.</span>
+              <span>Terima kasih! Pesan bantuan Anda telah terkirim ke tim kurator naviable.id.</span>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-3">

@@ -1,4 +1,4 @@
-# anviable.id — Direktori Kompetisi & Matchmaking Pelajar Indonesia
+# naviable.id — Direktori Kompetisi & Matchmaking Pelajar Indonesia
 > **Finalist Submission for DeveloperDay.id 2026**  
 > *Platform agregator kompetisi resmi, kurasi terverifikasi bebas scam, dan matchmaking rekan tim lintas SMA/SMK se-Indonesia.*
 
@@ -17,7 +17,7 @@ Setiap tahun, ratusan ribu siswa SMA, SMK, dan MA di Indonesia berburu sertifika
 2. **Ketiadaan Rekan Tim Komplementer**: Siswa SMK jurusan RPL kesulitan mencari rekan desainer UI atau presenter, begitu pula siswa SMA yang ingin ikut Hackathon/LKTI sering gugur karena tim tidak lengkap.
 3. **Dead-end Matchmaking**: Formulir cari teman tim konvensional sering berujung ghosting karena tidak adanya kanal komunikasi langsung.
 
-**anviable.id** hadir memecahkan masalah ini dengan direktori terverifikasi, pencarian berbasis SQL performa tinggi, dan ekosistem matchmaking rekan tim dengan integrasi komunikasi instan.
+**naviable.id** hadir memecahkan masalah ini dengan direktori terverifikasi, pencarian berbasis SQL performa tinggi, dan ekosistem matchmaking rekan tim dengan integrasi komunikasi instan.
 
 ---
 
@@ -127,4 +127,4 @@ Buka browser pada [http://localhost:3000](http://localhost:3000).
 
 ---
 
-© 2026 Tim Pengembang **anviable.id** — Dibuat untuk DeveloperDay.id.
+© 2026 Tim Pengembang **naviable.id** — Dibuat untuk DeveloperDay.id.

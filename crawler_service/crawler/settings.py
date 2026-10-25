@@ -1,17 +1,17 @@
-"""Scrapy settings for Anviable Crawler Engine."""
+"""Scrapy settings for Naviable Crawler Engine."""
 
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
 
-BOT_NAME = "anviable_crawler"
+BOT_NAME = "naviable_crawler"
 SPIDER_MODULES = ["crawler.spiders"]
 NEWSPIDER_MODULE = "crawler.spiders"
 
 # Politeness and Compliance
 USER_AGENT = (
-    "AnviableBot/1.0 (+https://anviable.id/bot; media-partner competition indexer; bot@anviable.id)"
+    "NaviableBot/1.0 (+https://naviable.id/bot; media-partner competition indexer; bot@naviable.id)"
 )
 ROBOTSTXT_OBEY = os.getenv("ROBOTSTXT_OBEY", "true").lower() == "true"
 

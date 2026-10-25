@@ -14,9 +14,11 @@ import {
   Users,
   Home,
   ArrowRight,
+  GraduationCap,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useBookmarks } from "@/components/BookmarkButton";
+import NaviableLogo from "@/components/NaviableLogo";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -59,22 +61,7 @@ export default function Navbar() {
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
           {/* Brand */}
-          <Link
-            href="/"
-            className="group flex items-center gap-2.5 text-xl font-extrabold tracking-tight shrink-0 select-none mr-2"
-          >
-            <div className="relative flex h-9.5 w-9.5 items-center justify-center rounded-xl bg-gradient-to-tr from-amber-400 via-orange-500 to-indigo-600 shadow-md shadow-orange-500/15 transition-transform group-hover:scale-105">
-              <Trophy className="h-4.5 w-4.5 text-white" />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-lg font-black tracking-tight text-slate-900 leading-none">
-                anviable<span className="text-indigo-600">.id</span>
-              </span>
-              <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mt-1">
-                Pelajar Indonesia
-              </span>
-            </div>
-          </Link>
+          <NaviableLogo size="md" className="mr-2" />
 
           {/* Desktop Navigation */}
           <nav className="hidden items-center gap-1 xl:gap-1.5 lg:flex">
@@ -102,6 +89,22 @@ export default function Navbar() {
             >
               <Compass className={cn("h-4 w-4 transition-colors", pathname.startsWith("/lomba") ? "text-indigo-600" : "text-slate-400 group-hover:text-slate-600")} />
               <span>Kumpulan Lomba</span>
+            </Link>
+
+            <Link
+              href="/smk"
+              className={cn(
+                "group relative inline-flex h-9 items-center gap-1.5 rounded-lg px-3 text-sm font-semibold transition-all duration-150 whitespace-nowrap shrink-0",
+                pathname === "/smk"
+                  ? "bg-amber-50 text-amber-900 font-bold ring-1 ring-amber-200"
+                  : "text-slate-600 hover:bg-slate-100/80 hover:text-slate-900"
+              )}
+            >
+              <GraduationCap className={cn("h-4 w-4 transition-colors", pathname === "/smk" ? "text-amber-600" : "text-amber-500 group-hover:text-amber-600")} />
+              <span>Zona SMK</span>
+              <span className="rounded-full bg-amber-100 border border-amber-300/80 px-1.5 py-0.5 text-[9px] font-black text-amber-900 uppercase tracking-wider">
+                Vokasi
+              </span>
             </Link>
 
             <Link
@@ -190,18 +193,9 @@ export default function Navbar() {
           <div className="fixed inset-y-0 right-0 z-50 flex w-[85vw] max-w-sm flex-col bg-white shadow-2xl animate-slide-left">
             {/* Drawer Header */}
             <div className="flex h-16 items-center justify-between border-b border-slate-100 px-5 shrink-0">
-              <Link
-                href="/"
-                onClick={() => setMobileOpen(false)}
-                className="flex items-center gap-2 font-extrabold text-base"
-              >
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-tr from-amber-400 via-orange-500 to-indigo-600 text-white shadow-sm">
-                  <Trophy className="h-4 w-4" />
-                </div>
-                <span className="text-slate-900 font-black">
-                  anviable<span className="text-indigo-600">.id</span>
-                </span>
-              </Link>
+              <div onClick={() => setMobileOpen(false)}>
+                <NaviableLogo size="sm" />
+              </div>
               <button
                 type="button"
                 onClick={() => setMobileOpen(false)}
@@ -248,6 +242,25 @@ export default function Navbar() {
                 </div>
                 <span className="rounded-md bg-indigo-100 px-2 py-0.5 text-[10px] font-bold text-indigo-700">
                   Resmi
+                </span>
+              </Link>
+
+              <Link
+                href="/smk"
+                onClick={() => setMobileOpen(false)}
+                className={cn(
+                  "flex items-center justify-between rounded-xl px-3.5 py-3 text-sm font-bold transition-all",
+                  pathname === "/smk"
+                    ? "bg-amber-50 text-amber-900"
+                    : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"
+                )}
+              >
+                <div className="flex items-center gap-3">
+                  <GraduationCap className="h-4.5 w-4.5 text-amber-600" />
+                  <span>Zona Khusus Siswa SMK</span>
+                </div>
+                <span className="rounded-md bg-amber-100 px-2 py-0.5 text-[10px] font-bold text-amber-800">
+                  Filter 2-Tier
                 </span>
               </Link>
 
@@ -303,7 +316,7 @@ export default function Navbar() {
                 <span>Pasang Lomba Gratis</span>
               </Link>
               <p className="text-center text-[10px] text-slate-400 font-medium">
-                anviable.id © 2026 : Pelajar Indonesia
+                naviable.id © 2026 : Pelajar Indonesia
               </p>
             </div>
           </div>

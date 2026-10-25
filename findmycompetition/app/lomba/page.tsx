@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import { connection } from "next/server";
-import { db, withDbRetry } from "@/db";
+import { db, withDbRetry, ensureMatchmakingTables } from "@/db";
 import { competitions } from "@/db/schema";
 import { eq, asc, desc, and, or, like, sql, type SQL } from "drizzle-orm";
 import { type Category, type Level, categoryEnum, levelEnum } from "@/db/schema";
@@ -21,7 +21,7 @@ import {
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Kumpulan Lomba SMA, SMK & MA 2026 Terlengkap : anviable.id",
+  title: "Kumpulan Lomba SMA, SMK & MA 2026 Terlengkap : naviable.id",
   description:
     "Jelajahi dan saring seluruh ajang perlombaan akademik, teknologi, seni, riset, dan bisnis terverifikasi untuk siswa SMA, SMK, dan MA di seluruh Indonesia.",
 };
@@ -49,6 +49,7 @@ const CATEGORY_TABS = [
 
 export default async function KumpulanLombaPage({ searchParams }: PageProps) {
   await connection();
+  await ensureMatchmakingTables();
   const params = (await searchParams) || {};
   const { q, category, level, fee, audience, sort } = params;
 

@@ -3,13 +3,13 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "anviable-crawler"
+name = "naviable-crawler"
 version = "0.1.0"
-description = "Production-grade, adaptive, and modular web crawling engine for Anviable.id backed by TiDB"
+description = "Production-grade, adaptive, and modular web crawling engine for Naviable.id backed by TiDB"
 readme = "README.md"
 requires-python = ">=3.11"
 authors = [
-    { name = "Anviable Data Engineering Team", email = "engineering@anviable.id" }
+    { name = "Naviable Data Engineering Team", email = "engineering@naviable.id" }
 ]
 dependencies = [
     "scrapy>=2.11.0",

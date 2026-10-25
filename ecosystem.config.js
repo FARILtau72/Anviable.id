@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: "anviable-web",
+      name: "naviable-web",
       cwd: "./findmycompetition",
       script: "node_modules/next/dist/bin/next",
       args: "start -p 3000",
@@ -12,7 +12,7 @@ module.exports = {
       },
     },
     {
-      name: "anviable-crawler-api",
+      name: "naviable-crawler-api",
       cwd: "./crawler_service",
       script: "python3",
       args: "-m uvicorn crawler.api.main:app --host 0.0.0.0 --port 8000",
@@ -23,7 +23,7 @@ module.exports = {
       },
     },
     {
-      name: "anviable-crawler-scheduler",
+      name: "naviable-crawler-scheduler",
       cwd: "./crawler_service",
       script: "python3",
       args: "-m crawler.schedulers.runner",

@@ -124,7 +124,7 @@ export default function SubmitPage() {
           Ajukan <span className="gradient-ptn">Kompetisi Baru</span>
         </h1>
         <p className="mt-2 text-sm text-slate-600 max-w-xl">
-          Publikasikan informasi lomba Anda kepada siswa SMA, SMK, dan MA di seluruh Indonesia. Seluruh submisi akan diverifikasi oleh tim kurator anviable.id dalam 1x24 jam.
+          Publikasikan informasi lomba Anda kepada siswa SMA, SMK, dan MA di seluruh Indonesia. Seluruh submisi akan diverifikasi oleh tim kurator naviable.id dalam 1x24 jam.
         </p>
       </div>
 

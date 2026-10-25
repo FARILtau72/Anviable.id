@@ -1,6 +1,6 @@
-# Design Direction: Anviable.id
+# Design Direction: Naviable.id
 
-> Official visual identity and design tokens for Anviable.id (Platform Kurasi Kompetisi Pelajar Indonesia).
+> Official visual identity, logo specifications, and design tokens for Naviable.id (Platform Kurasi Kompetisi Pelajar Indonesia).
 > Built under the `antislop` guidelines to ensure an authentic, designer-crafted experience without generic AI tropes.
 
 ---

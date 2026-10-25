@@ -18,14 +18,14 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "anviable.id: Direktori Kompetisi Siswa SMA, SMK, dan MA Indonesia",
-    template: "%s | anviable.id",
+    default: "naviable.id: Direktori Kompetisi Siswa SMA, SMK, dan MA Indonesia",
+    template: "%s | naviable.id",
   },
   description:
     "Direktori dan kurasi kompetisi pelajar SMA, SMK, dan MA terlengkap di Indonesia. Temukan lomba teknologi, sains, desain, bisnis, seni, dan karya ilmiah terverifikasi.",
   keywords: [
-    "anviable",
-    "anviable.id",
+    "naviable",
+    "naviable.id",
     "lomba SMA",
     "lomba SMK",
     "kompetisi pelajar",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     "Indonesia",
   ],
   openGraph: {
-    title: "anviable.id: Direktori Kompetisi Siswa SMA, SMK, dan MA",
+    title: "naviable.id: Direktori Kompetisi Siswa SMA, SMK, dan MA",
     description:
       "Direktori kompetisi pelajar SMA, SMK, dan MA terlengkap di Indonesia.",
     type: "website",

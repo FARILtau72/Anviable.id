@@ -1,4 +1,4 @@
-# Panduan Deployment Anviable.id ke VPS (Zero-Leak Security)
+# Panduan Deployment Naviable.id ke VPS (Zero-Leak Security)
 
 Dokumen ini berisi panduan komprehensif untuk mendorong (*push*) kode sumber ke GitHub dan melakukan *deployment* ke Virtual Private Server (VPS) secara aman tanpa ada kredensial atau *environment variables* yang bocor ke publik.
 
@@ -33,7 +33,7 @@ git status
 # (Pastikan hanya .env.example yang muncul, bukan .env asli)
 
 # 4. Buat commit pertama
-git commit -m "feat: initial commit Anviable.id platform and crawler service"
+git commit -m "feat: initial commit Naviable.id platform and crawler service"
 
 # 5. Pastikan branch utama bernama main
 git branch -M main
@@ -90,7 +90,7 @@ nano findmycompetition/.env
 # Masukkan kredensial database TiDB Cloud asli & password admin Anda:
 # DATABASE_URL="mysql://2RDkE8SSJ9asYGH.root:4ExRLXVwSLBAsEDZ@gateway03.us-west-2.prod.aws.tidbcloud.com:4000/test"
 # ADMIN_PASSWORD="PasswordKuatAdminAnda"
-# NEXT_PUBLIC_APP_URL="https://anviable.id"
+# NEXT_PUBLIC_APP_URL="https://naviable.id"
 ```
 
 ```bash
@@ -110,8 +110,8 @@ docker compose up -d --build
 Periksa kontainer yang berjalan:
 ```bash
 docker compose ps
-# anviable_web     -> Port 3000
-# anviable_crawler -> Port 8000
+# naviable_web     -> Port 3000
+# naviable_crawler -> Port 8000
 ```
 
 Untuk melihat log:
@@ -178,13 +178,13 @@ sudo apt install -y nginx certbot python3-certbot-nginx
 
 Buat konfigurasi virtual host:
 ```bash
-sudo nano /etc/nginx/sites-available/anviable
+sudo nano /etc/nginx/sites-available/naviable
 ```
 
-Isi dengan konfigurasi berikut (ganti `anviable.id` dengan domain/subdomain Anda):
+Isi dengan konfigurasi berikut (ganti `naviable.id` dengan domain/subdomain Anda):
 ```nginx
 server {
-    server_name anviable.id www.anviable.id;
+    server_name naviable.id www.naviable.id;
 
     # Frontend Next.js Web App
     location / {
@@ -213,14 +213,14 @@ server {
 
 Aktifkan konfigurasi dan uji Nginx:
 ```bash
-sudo ln -s /etc/nginx/sites-available/anviable /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/naviable /etc/nginx/sites-enabled/
 sudo nginx -t
 sudo systemctl reload nginx
 ```
 
 Pasang Sertifikat SSL Gratis (Let's Encrypt):
 ```bash
-sudo certbot --nginx -d anviable.id -d www.anviable.id
+sudo certbot --nginx -d naviable.id -d www.naviable.id
 ```
 
-Selesai! Website Anviable.id kini aktif di HTTPS dengan proteksi kredensial penuh.
+Selesai! Website Naviable.id kini aktif di HTTPS dengan proteksi kredensial penuh.

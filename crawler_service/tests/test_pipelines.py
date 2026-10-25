@@ -30,13 +30,13 @@ def test_deduplication_pipeline_drops_duplicate():
 
     item1 = CompetitionRawItem()
     item1["title"] = "Hackathon Nasional 2026"
-    item1["organizer"] = "Anviable"
-    item1["canonical_url"] = "https://anviable.id/hackathon-2026"
+    item1["organizer"] = "Naviable"
+    item1["canonical_url"] = "https://naviable.id/hackathon-2026"
 
     item2 = CompetitionRawItem()
     item2["title"] = "Hackathon Nasional 2026"
-    item2["organizer"] = "Anviable"
-    item2["canonical_url"] = "https://anviable.id/hackathon-2026?utm_source=wa"
+    item2["organizer"] = "Naviable"
+    item2["canonical_url"] = "https://naviable.id/hackathon-2026?utm_source=wa"
 
     # First item passes
     res1 = pipeline.process_item(item1, None)

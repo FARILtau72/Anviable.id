@@ -5,7 +5,7 @@ import { competitions, type NewCompetition } from "../db/schema";
 import dayjs from "dayjs";
 
 const USER_AGENT =
-  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 AnviableScraper/1.0";
+  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 NaviableScraper/1.0";
 
 interface ScrapedItem {
   title: string;

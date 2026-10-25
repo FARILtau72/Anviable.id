@@ -211,7 +211,7 @@ export default function TeamMatchmakingSection() {
             </div>
 
             <p className="text-xs text-slate-300 leading-relaxed mb-5">
-              Fitur pencocokan tim anviable.id menghubungkan pelajar SMA dan SMK berdasarkan keahlian teknis (pemrograman, desain antarmuka, riset laboratorium, naskah esai) dan domisili kota.
+              Fitur pencocokan tim naviable.id menghubungkan pelajar SMA dan SMK berdasarkan keahlian teknis (pemrograman, desain antarmuka, riset laboratorium, naskah esai) dan domisili kota.
             </p>
 
             <div className="space-y-2.5">

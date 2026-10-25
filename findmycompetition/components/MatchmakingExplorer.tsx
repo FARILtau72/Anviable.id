@@ -17,17 +17,90 @@ import {
   GraduationCap,
   Briefcase,
   Share2,
+  KeyRound,
+  ShieldAlert,
+  ShieldCheck,
+  Lock,
+  Trash2,
+  Settings,
+  AlertCircle,
+  Copy,
 } from "lucide-react";
 import type { TeamPosting, TalentProfile } from "@/db/schema";
 import {
   createTeamPostingAction,
   createTalentProfileAction,
   applyToTeamAction,
+  updateTeamStatusWithPinAction,
+  deleteTeamPostingWithPinAction,
+  deleteTalentProfileWithPinAction,
 } from "@/lib/actions";
 
 interface MatchmakingExplorerProps {
   initialTeams: TeamPosting[];
   initialTalents: TalentProfile[];
+}
+
+function maskContact(contact: string): string {
+  if (!contact) return "Tersedia via verifikasi";
+  const digits = contact.replace(/[^0-9]/g, "");
+  if (digits.length >= 8) {
+    const prefix = digits.slice(0, 4);
+    const suffix = digits.slice(-3);
+    return `${prefix}-****-${suffix}`;
+  }
+  if (contact.includes("@")) {
+    const [user, domain] = contact.split("@");
+    return `${user.slice(0, 2)}***@${domain}`;
+  }
+  if (contact.length > 4) {
+    return `${contact.slice(0, 3)}***`;
+  }
+  return "***";
+}
+
+function getRoleBadgeTheme(role: string): { bg: string; text: string; border: string; category: string } {
+  const r = role.toLowerCase();
+  if (
+    r.includes("code") ||
+    r.includes("developer") ||
+    r.includes("frontend") ||
+    r.includes("backend") ||
+    r.includes("web") ||
+    r.includes("iot") ||
+    r.includes("hardware") ||
+    r.includes("python") ||
+    r.includes("tech")
+  ) {
+    return {
+      bg: "bg-blue-50",
+      text: "text-blue-700",
+      border: "border-blue-200/80",
+      category: "Hacker / Teknis",
+    };
+  }
+  if (
+    r.includes("design") ||
+    r.includes("ui") ||
+    r.includes("ux") ||
+    r.includes("figma") ||
+    r.includes("animasi") ||
+    r.includes("video") ||
+    r.includes("seni")
+  ) {
+    return {
+      bg: "bg-purple-50",
+      text: "text-purple-700",
+      border: "border-purple-200/80",
+      category: "Hipster / Desain",
+    };
+  }
+  return {
+    bg: "bg-amber-50",
+    text: "text-amber-800",
+    border: "border-amber-200/80",
+    category: "Hustler / Presentasi",
+  };
 }
 
 const COMMON_ROLES = [
@@ -63,6 +136,20 @@ export default function MatchmakingExplorer({
   const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
   const [isCreateTeamModalOpen, setIsCreateTeamModalOpen] = useState(false);
   const [isCreateTalentModalOpen, setIsCreateTalentModalOpen] = useState(false);
+
+  // Contact modal state (safety & privacy)
+  const [selectedTalentForContact, setSelectedTalentForContact] = useState<TalentProfile | null>(null);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+
+  // PIN Self-Service Management state
+  const [manageTeamTarget, setManageTeamTarget] = useState<TeamPosting | null>(null);
+  const [manageTalentTarget, setManageTalentTarget] = useState<TalentProfile | null>(null);
+  const [managePinInput, setManagePinInput] = useState("");
+  const [managePinError, setManagePinError] = useState<string | null>(null);
+
+  // Generated default PINs for new forms
+  const [teamFormPin, setTeamFormPin] = useState("2846");
+  const [talentFormPin, setTalentFormPin] = useState("1973");
 
   // Quick chips helper state for team modal
   const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
@@ -266,21 +353,57 @@ export default function MatchmakingExplorer({
                   ? JSON.parse(team.rolesNeeded as string)
                   : [];
 
+                const isClosed = team.status === "CLOSED";
+
                 return (
                   <div
                     key={team.id}
-                    className="flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-5 shadow-2xs hover:shadow-md hover:border-slate-300 transition-all group"
+                    className={`flex flex-col justify-between rounded-2xl border bg-white p-5 shadow-2xs hover:shadow-md transition-all group ${
+                      isClosed
+                        ? "border-slate-200/60 opacity-80 bg-slate-50/50"
+                        : "border-slate-200 hover:border-slate-300"
+                    }`}
                   >
                     <div className="space-y-3">
-                      {/* Top Badges */}
-                      <div className="flex items-center justify-between gap-2">
-                        <span className="inline-flex items-center gap-1 rounded-md bg-indigo-50 border border-indigo-100/80 px-2 py-0.5 text-[11px] font-bold text-indigo-700">
-                          <Laptop className="h-3 w-3" />
-                          <span>{team.workFormat}</span>
-                        </span>
-                        <span className="text-[11px] font-semibold text-slate-400">
-                          {team.membersCount}/{team.maxMembers} Anggota
-                        </span>
+                      {/* Top Badges & Status */}
+                      <div className="flex items-center justify-between gap-1.5 flex-wrap">
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                          <span className="inline-flex items-center gap-1 rounded-md bg-indigo-50 border border-indigo-100/80 px-2 py-0.5 text-[11px] font-bold text-indigo-700">
+                            <Laptop className="h-3 w-3" />
+                            <span>{team.workFormat}</span>
+                          </span>
+
+                          {isClosed ? (
+                            <span className="inline-flex items-center gap-1 rounded-md bg-slate-100 border border-slate-200 px-2 py-0.5 text-[10px] font-bold text-slate-600">
+                              <Lock className="h-2.5 w-2.5" />
+                              <span>Tim Penuh (Closed)</span>
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center gap-1 rounded-md bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 text-[10px] font-bold text-emerald-700">
+                              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                              <span>Buka Rekrutmen</span>
+                            </span>
+                          )}
+                        </div>
+
+                        <div className="flex items-center gap-1">
+                          <span className="text-[11px] font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md">
+                            👥 {team.membersCount}/{team.maxMembers}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setManageTeamTarget(team);
+                              setManagePinInput("");
+                              setManagePinError(null);
+                            }}
+                            className="p-1 rounded-lg text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 transition-colors cursor-pointer"
+                            title="Kelola status tim / tutup lowongan (PIN)"
+                            aria-label="Kelola tim"
+                          >
+                            <Settings className="h-3.5 w-3.5" />
+                          </button>
+                        </div>
                       </div>
 
                       {/* Team Name & Competition */}
@@ -299,20 +422,24 @@ export default function MatchmakingExplorer({
                         {team.description}
                       </p>
 
-                      {/* Roles Needed Badges */}
+                      {/* Roles Needed Badges with Classification Colors */}
                       <div className="space-y-1 pt-0.5">
                         <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
                           Dicari:
                         </span>
                         <div className="flex flex-wrap gap-1">
-                          {roles.map((r: string, idx: number) => (
-                            <span
-                              key={idx}
-                              className="rounded-md bg-amber-50 border border-amber-200/70 px-2 py-0.5 text-[10px] font-bold text-amber-800"
-                            >
-                              + {r}
-                            </span>
-                          ))}
+                          {roles.map((r: string, idx: number) => {
+                            const theme = getRoleBadgeTheme(r);
+                            return (
+                              <span
+                                key={idx}
+                                className={`rounded-md border px-2 py-0.5 text-[10px] font-bold ${theme.bg} ${theme.border} ${theme.text}`}
+                                title={theme.category}
+                              >
+                                + {r}
+                              </span>
+                            );
+                          })}
                         </div>
                       </div>
                     </div>
@@ -328,17 +455,24 @@ export default function MatchmakingExplorer({
                         </p>
                       </div>
 
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setSelectedTeam(team);
-                          setIsApplyModalOpen(true);
-                        }}
-                        className="btn-coral inline-flex items-center gap-1 rounded-xl px-3 py-1.5 text-xs font-bold text-white shadow-2xs cursor-pointer"
-                      >
-                        <Send className="h-3 w-3" />
-                        <span>Ajak Koneksi</span>
-                      </button>
+                      {isClosed ? (
+                        <span className="inline-flex items-center gap-1 rounded-xl bg-slate-200 px-3 py-1.5 text-xs font-bold text-slate-500 cursor-not-allowed">
+                          <Lock className="h-3 w-3" />
+                          <span>Sudah Penuh</span>
+                        </span>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setSelectedTeam(team);
+                            setIsApplyModalOpen(true);
+                          }}
+                          className="btn-coral inline-flex items-center gap-1 rounded-xl px-3 py-1.5 text-xs font-bold text-white shadow-2xs cursor-pointer"
+                        >
+                          <Send className="h-3 w-3" />
+                          <span>Ajak Koneksi</span>
+                        </button>
+                      )}
                     </div>
                   </div>
                 );
@@ -384,7 +518,7 @@ export default function MatchmakingExplorer({
                 return (
                   <div
                     key={tal.id}
-                    className="flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-5 shadow-2xs hover:shadow-md hover:border-slate-300 transition-all"
+                    className="flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-5 shadow-2xs hover:shadow-md hover:border-slate-300 transition-all group"
                   >
                     <div className="space-y-3">
                       {/* Status & Grade */}
@@ -393,14 +527,29 @@ export default function MatchmakingExplorer({
                           <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
                           <span>Siap Diajak Lomba</span>
                         </span>
-                        <span className="text-[11px] font-medium text-slate-400">
-                          {tal.gradeLevel}
-                        </span>
+                        <div className="flex items-center gap-1">
+                          <span className="text-[11px] font-medium text-slate-400">
+                            {tal.gradeLevel}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setManageTalentTarget(tal);
+                              setManagePinInput("");
+                              setManagePinError(null);
+                            }}
+                            className="p-1 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
+                            title="Kelola / Hapus profil saya (PIN)"
+                            aria-label="Kelola profil"
+                          >
+                            <Trash2 className="h-3.5 w-3.5" />
+                          </button>
+                        </div>
                       </div>
 
                       {/* Name & School */}
                       <div>
-                        <h3 className="text-base font-black tracking-tight text-slate-900">
+                        <h3 className="text-base font-black tracking-tight text-slate-900 group-hover:text-emerald-700 transition-colors">
                           {tal.fullName}
                         </h3>
                         <p className="text-xs text-slate-500 flex items-center gap-1 mt-0.5 truncate">
@@ -414,16 +563,25 @@ export default function MatchmakingExplorer({
                         {tal.bio}
                       </p>
 
-                      {/* Skills Tags */}
+                      {/* Skills Tags with Categorization Colors */}
                       <div className="flex flex-wrap gap-1">
-                        {skills.map((s: string, idx: number) => (
-                          <span
-                            key={idx}
-                            className="rounded-md bg-indigo-50 border border-indigo-100 px-2 py-0.5 text-[10px] font-bold text-indigo-700"
-                          >
-                            #{s}
-                          </span>
-                        ))}
+                        {skills.map((s: string, idx: number) => {
+                          const theme = getRoleBadgeTheme(s);
+                          return (
+                            <span
+                              key={idx}
+                              className={`rounded-md border px-2 py-0.5 text-[10px] font-bold ${theme.bg} ${theme.border} ${theme.text}`}
+                            >
+                              #{s}
+                            </span>
+                          );
+                        })}
+                      </div>
+
+                      {/* Masked Contact Security Indicator */}
+                      <div className="pt-1 flex items-center gap-1.5 text-[11px] font-semibold text-slate-400">
+                        <Lock className="h-3 w-3 text-slate-400 shrink-0" />
+                        <span>Kontak Terproteksi: {maskContact(tal.contactInfo)}</span>
                       </div>
                     </div>
 
@@ -443,19 +601,17 @@ export default function MatchmakingExplorer({
                         <span className="text-[11px] text-slate-400">Portofolio via chat</span>
                       )}
 
-                      <a
-                        href={
-                          tal.contactChannel === "WHATSAPP"
-                            ? `https://wa.me/${tal.contactInfo.replace(/[^0-9]/g, "")}`
-                            : "#"
-                        }
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-1 rounded-xl bg-slate-900 px-3 py-1.5 text-xs font-bold text-white hover:bg-slate-800 shadow-2xs transition-all"
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSelectedTalentForContact(tal);
+                          setIsContactModalOpen(true);
+                        }}
+                        className="inline-flex items-center gap-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 px-3 py-1.5 text-xs font-bold text-white shadow-2xs transition-all cursor-pointer"
                       >
                         <MessageCircle className="h-3.5 w-3.5 text-emerald-400" />
-                        <span>Chat ({tal.contactChannel})</span>
-                      </a>
+                        <span>Hubungi Siswa</span>
+                      </button>
                     </div>
                   </div>
                 );
@@ -522,7 +678,7 @@ export default function MatchmakingExplorer({
                     const cleanPhone = selectedTeam.contactInfo.replace(/[^0-9]/g, "");
                     const formattedPhone = cleanPhone.startsWith("0") ? "62" + cleanPhone.slice(1) : cleanPhone;
                     const templateText = encodeURIComponent(
-                      `Halo kak ${selectedTeam.leaderName}, saya ${applicantName} dari ${schoolName}. Saya telah mengirim lamaran kolaborasi via anviable.id untuk posisi ${roleApplied} di tim "${selectedTeam.teamName}". Senang bisa terhubung!`
+                      `Halo kak ${selectedTeam.leaderName}, saya ${applicantName} dari ${schoolName}. Saya telah mengirim lamaran kolaborasi via naviable.id untuk posisi ${roleApplied} di tim "${selectedTeam.teamName}". Senang bisa terhubung!`
                     );
                     const waUrl = `https://wa.me/${formattedPhone}?text=${templateText}`;
                     window.open(waUrl, "_blank");
@@ -652,6 +808,8 @@ export default function MatchmakingExplorer({
                 }
                 setIsSubmitting(true);
                 const fd = new FormData(e.currentTarget);
+                const pin = (fd.get("managePin") as string)?.trim() || teamFormPin;
+
                 const res = await createTeamPostingAction({
                   teamName: fd.get("teamName") as string,
                   leaderName: fd.get("leaderName") as string,
@@ -664,6 +822,7 @@ export default function MatchmakingExplorer({
                   contactChannel: fd.get("contactChannel") as string,
                   contactInfo: fd.get("contactInfo") as string,
                   maxMembers: parseInt(fd.get("maxMembers") as string) || 3,
+                  managePin: pin,
                 });
 
                 setIsSubmitting(false);
@@ -846,6 +1005,29 @@ export default function MatchmakingExplorer({
                     />
                   </div>
                 </div>
+
+                {/* Row 6: PIN Pengelola Mandiri */}
+                <div className="rounded-2xl border border-indigo-100 bg-indigo-50/40 p-3">
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                      <KeyRound className="h-3.5 w-3.5 text-indigo-600" />
+                      <span>PIN Pengelola Lowongan (4 Digit)</span>
+                    </label>
+                    <span className="text-[10px] text-slate-500">Kunci untuk tutup / hapus tim</span>
+                  </div>
+                  <input
+                    name="managePin"
+                    required
+                    maxLength={10}
+                    value={teamFormPin}
+                    onChange={(e) => setTeamFormPin(e.target.value)}
+                    placeholder="Contoh: 1234"
+                    className="mt-2 w-full rounded-xl border border-indigo-200 bg-white px-3 py-2 text-base sm:text-sm font-mono font-bold tracking-widest text-indigo-700 focus:border-indigo-500 focus:outline-none"
+                  />
+                  <p className="mt-1 text-[10px] text-slate-500">
+                    Catat PIN ini. Hanya kamu yang memegang PIN ini yang dapat menandai tim sebagai "PENUH" atau menghapus postingan.
+                  </p>
+                </div>
               </div>
 
               {/* Sticky Footer */}
@@ -901,6 +1083,8 @@ export default function MatchmakingExplorer({
                 }
                 setIsSubmitting(true);
                 const fd = new FormData(e.currentTarget);
+                const pin = (fd.get("managePin") as string)?.trim() || talentFormPin;
+
                 const res = await createTalentProfileAction({
                   fullName: fd.get("fullName") as string,
                   schoolName: fd.get("schoolName") as string,
@@ -912,6 +1096,7 @@ export default function MatchmakingExplorer({
                   portfolioUrl: fd.get("portfolioUrl") as string,
                   contactChannel: fd.get("contactChannel") as string,
                   contactInfo: fd.get("contactInfo") as string,
+                  managePin: pin,
                 });
 
                 setIsSubmitting(false);
@@ -1058,6 +1243,29 @@ export default function MatchmakingExplorer({
                     className="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2 text-base sm:text-xs focus:border-indigo-500 focus:outline-none"
                   />
                 </div>
+
+                {/* PIN Pengelola Mandiri */}
+                <div className="rounded-2xl border border-emerald-100 bg-emerald-50/40 p-3">
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                      <KeyRound className="h-3.5 w-3.5 text-emerald-600" />
+                      <span>PIN Pengelola Profil (4 Digit)</span>
+                    </label>
+                    <span className="text-[10px] text-slate-500">Kunci untuk hapus profil</span>
+                  </div>
+                  <input
+                    name="managePin"
+                    required
+                    maxLength={10}
+                    value={talentFormPin}
+                    onChange={(e) => setTalentFormPin(e.target.value)}
+                    placeholder="Contoh: 1234"
+                    className="mt-2 w-full rounded-xl border border-emerald-200 bg-white px-3 py-2 text-base sm:text-sm font-mono font-bold tracking-widest text-emerald-700 focus:border-emerald-500 focus:outline-none"
+                  />
+                  <p className="mt-1 text-[10px] text-slate-500">
+                    Catat PIN ini. Kamu dapat menghapus profilmu sewaktu-waktu setelah berhasil menemukan tim lomba.
+                  </p>
+                </div>
               </div>
 
               {/* Sticky Footer */}
@@ -1065,19 +1273,360 @@ export default function MatchmakingExplorer({
                 <button
                   type="button"
                   onClick={() => setIsCreateTalentModalOpen(false)}
-                  className="rounded-xl border border-slate-200 px-4 py-2 text-xs font-bold text-slate-600 hover:bg-white"
+                  className="rounded-xl border border-slate-200 px-4 py-2 text-xs font-bold text-slate-600 hover:bg-white cursor-pointer"
                 >
                   Batal
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="btn-coral rounded-xl px-5 py-2 text-xs font-bold text-white shadow-xs"
+                  className="btn-coral rounded-xl px-5 py-2 text-xs font-bold text-white shadow-xs cursor-pointer"
                 >
                   {isSubmitting ? "Menyimpan..." : "Daftar Talent Pool"}
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* MODAL 4: HUBUNGI SISWA (Safe Reveal & Ethics Pledge)                       */}
+      {/* ========================================================================= */}
+      {isContactModalOpen && selectedTalentForContact && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-3 sm:p-4 animate-fade-in">
+          <div className="relative flex flex-col w-full max-w-md rounded-3xl bg-white shadow-2xl border border-slate-100 overflow-hidden">
+            {/* Header */}
+            <div className="flex items-center justify-between border-b border-slate-100 px-5 py-4 bg-slate-50/60">
+              <div className="flex items-center gap-2">
+                <ShieldCheck className="h-5 w-5 text-emerald-600" />
+                <div>
+                  <h3 className="text-sm sm:text-base font-bold text-slate-900">Hubungi Siswa Resmi</h3>
+                  <p className="text-[11px] text-slate-500">Privasi dan etika komunikasi antar pelajar</p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  setIsContactModalOpen(false);
+                  setSelectedTalentForContact(null);
+                }}
+                className="rounded-lg p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600 cursor-pointer"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            {/* Body */}
+            <div className="p-5 space-y-4 text-xs sm:text-sm">
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-3.5 space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-slate-900 text-sm">
+                    {selectedTalentForContact.fullName}
+                  </span>
+                  <span className="text-[10px] font-semibold text-emerald-700 bg-emerald-100/80 px-2 py-0.5 rounded-md">
+                    {selectedTalentForContact.contactChannel}
+                  </span>
+                </div>
+                <p className="text-xs text-slate-500">
+                  {selectedTalentForContact.schoolName} ({selectedTalentForContact.major})
+                </p>
+              </div>
+
+              {/* Ethics pledge notice */}
+              <div className="flex items-start gap-2.5 rounded-2xl border border-amber-200 bg-amber-50/60 p-3 text-[11px] text-amber-900 leading-relaxed">
+                <AlertCircle className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />
+                <div>
+                  <strong className="block font-bold">Komitmen Etika Pelajar:</strong>
+                  Gunakan nomor kontak ini secara sopan khusus untuk mendiskusikan ajakan bergabung ke tim lomba. Dilarang keras mengirimkan spam, pelecehan, atau penawaran di luar kompetisi.
+                </div>
+              </div>
+
+              {/* Direct Unmasked Contact Display */}
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-slate-700">Kontak Langsung:</label>
+                <div className="flex items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 font-mono text-sm font-bold text-slate-800">
+                  <span>{selectedTalentForContact.contactInfo}</span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      navigator.clipboard.writeText(selectedTalentForContact.contactInfo);
+                      showToast("Kontak berhasil disalin ke clipboard!");
+                    }}
+                    className="inline-flex items-center gap-1 text-[11px] font-bold text-indigo-600 hover:text-indigo-800 cursor-pointer"
+                  >
+                    <Copy className="h-3.5 w-3.5" />
+                    <span>Salin</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Footer Actions */}
+            <div className="flex items-center justify-end gap-2 border-t border-slate-100 bg-slate-50/80 px-5 py-3">
+              <button
+                type="button"
+                onClick={() => {
+                  setIsContactModalOpen(false);
+                  setSelectedTalentForContact(null);
+                }}
+                className="rounded-xl border border-slate-200 px-4 py-2 text-xs font-bold text-slate-600 hover:bg-white cursor-pointer"
+              >
+                Tutup
+              </button>
+
+              {selectedTalentForContact.contactChannel === "WHATSAPP" ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    const cleanPhone = selectedTalentForContact.contactInfo.replace(/[^0-9]/g, "");
+                    const formatted = cleanPhone.startsWith("0") ? "62" + cleanPhone.slice(1) : cleanPhone;
+                    const template = encodeURIComponent(
+                      `Halo ${selectedTalentForContact.fullName}, saya melihat profil keahlianmu di naviable.id. Kami sedang mencari rekan tim untuk lomba/hackathon. Apakah kamu tertarik untuk ngobrol lebih lanjut?`
+                    );
+                    window.open(`https://wa.me/${formatted}?text=${template}`, "_blank");
+                    setIsContactModalOpen(false);
+                    setSelectedTalentForContact(null);
+                  }}
+                  className="inline-flex items-center gap-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 px-4 py-2 text-xs font-bold text-white shadow-xs cursor-pointer"
+                >
+                  <MessageCircle className="h-3.5 w-3.5" />
+                  <span>Buka Chat WhatsApp</span>
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => {
+                    navigator.clipboard.writeText(selectedTalentForContact.contactInfo);
+                    showToast("ID / Kontak berhasil disalin!");
+                    setIsContactModalOpen(false);
+                    setSelectedTalentForContact(null);
+                  }}
+                  className="btn-coral rounded-xl px-4 py-2 text-xs font-bold text-white shadow-xs cursor-pointer"
+                >
+                  <span>Salin Kontak</span>
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* MODAL 5: KELOLA TIM DENGAN PIN (Self-Service Status & Delete)               */}
+      {/* ========================================================================= */}
+      {manageTeamTarget && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-3 sm:p-4 animate-fade-in">
+          <div className="relative flex flex-col w-full max-w-md rounded-3xl bg-white shadow-2xl border border-slate-100 overflow-hidden">
+            {/* Header */}
+            <div className="flex items-center justify-between border-b border-slate-100 px-5 py-4 bg-slate-50/60">
+              <div className="flex items-center gap-2">
+                <Settings className="h-5 w-5 text-indigo-600" />
+                <div>
+                  <h3 className="text-sm sm:text-base font-bold text-slate-900">Kelola Status Tim</h3>
+                  <p className="text-[11px] text-slate-500">
+                    Tim: <strong className="text-indigo-600">{manageTeamTarget.teamName}</strong>
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  setManageTeamTarget(null);
+                  setManagePinInput("");
+                  setManagePinError(null);
+                }}
+                className="rounded-lg p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600 cursor-pointer"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            {/* Body */}
+            <div className="p-5 space-y-4 text-xs sm:text-sm">
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                  <KeyRound className="h-3.5 w-3.5 text-indigo-600" />
+                  <span>Masukkan PIN Pengelola (4 Digit):</span>
+                </label>
+                <input
+                  type="password"
+                  maxLength={10}
+                  value={managePinInput}
+                  onChange={(e) => {
+                    setManagePinInput(e.target.value);
+                    setManagePinError(null);
+                  }}
+                  placeholder="PIN saat membuat tim"
+                  className="w-full rounded-xl border border-slate-200 px-3 py-2 text-base sm:text-sm font-mono font-bold tracking-widest text-slate-900 focus:border-indigo-500 focus:outline-none"
+                />
+                {managePinError && (
+                  <p className="text-[11px] font-semibold text-rose-600">{managePinError}</p>
+                )}
+              </div>
+
+              {/* Status Info */}
+              <div className="rounded-2xl border border-slate-100 bg-slate-50 p-3 space-y-1">
+                <p className="text-xs text-slate-600">
+                  Status saat ini:{" "}
+                  <strong className={manageTeamTarget.status === "CLOSED" ? "text-slate-700" : "text-emerald-600"}>
+                    {manageTeamTarget.status === "CLOSED" ? "PENUH (CLOSED)" : "BUKA REKRUTMEN (OPEN)"}
+                  </strong>
+                </p>
+                <p className="text-[11px] text-slate-400">
+                  Jika tim sudah lengkap, kamu bisa menandai status sebagai "PENUH" agar tidak menerima lamaran lagi.
+                </p>
+              </div>
+
+              {/* Actions Grid */}
+              <div className="space-y-2 pt-1">
+                <button
+                  type="button"
+                  disabled={isSubmitting || !managePinInput}
+                  onClick={async () => {
+                    setIsSubmitting(true);
+                    setManagePinError(null);
+                    const newStatus = manageTeamTarget.status === "OPEN" ? "CLOSED" : "OPEN";
+                    const res = await updateTeamStatusWithPinAction(
+                      manageTeamTarget.id,
+                      managePinInput,
+                      newStatus
+                    );
+                    setIsSubmitting(false);
+                    if (res.success) {
+                      showToast(res.message);
+                      setManageTeamTarget(null);
+                      setManagePinInput("");
+                    } else {
+                      setManagePinError(res.message);
+                    }
+                  }}
+                  className="w-full rounded-xl border border-indigo-200 bg-indigo-50 hover:bg-indigo-100 py-2.5 text-xs font-bold text-indigo-700 transition-all cursor-pointer disabled:opacity-50"
+                >
+                  {manageTeamTarget.status === "OPEN"
+                    ? "Tandai Tim Sebagai PENUH (Tutup Rekrutmen)"
+                    : "Buka Kembali Lowongan Rekrutmen (OPEN)"}
+                </button>
+
+                <button
+                  type="button"
+                  disabled={isSubmitting || !managePinInput}
+                  onClick={async () => {
+                    if (confirm("Apakah kamu yakin ingin menghapus postingan tim ini secara permanen?")) {
+                      setIsSubmitting(true);
+                      setManagePinError(null);
+                      const res = await deleteTeamPostingWithPinAction(
+                        manageTeamTarget.id,
+                        managePinInput
+                      );
+                      setIsSubmitting(false);
+                      if (res.success) {
+                        showToast(res.message);
+                        setManageTeamTarget(null);
+                        setManagePinInput("");
+                      } else {
+                        setManagePinError(res.message);
+                      }
+                    }
+                  }}
+                  className="w-full rounded-xl border border-rose-200 bg-white hover:bg-rose-50 py-2.5 text-xs font-bold text-rose-600 transition-all cursor-pointer disabled:opacity-50"
+                >
+                  Hapus Postingan Tim Permanen
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* MODAL 6: KELOLA / HAPUS TALENT PROFILE DENGAN PIN                         */}
+      {/* ========================================================================= */}
+      {manageTalentTarget && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-3 sm:p-4 animate-fade-in">
+          <div className="relative flex flex-col w-full max-w-md rounded-3xl bg-white shadow-2xl border border-slate-100 overflow-hidden">
+            {/* Header */}
+            <div className="flex items-center justify-between border-b border-slate-100 px-5 py-4 bg-slate-50/60">
+              <div className="flex items-center gap-2">
+                <Trash2 className="h-5 w-5 text-rose-600" />
+                <div>
+                  <h3 className="text-sm sm:text-base font-bold text-slate-900">Kelola Profil Talent</h3>
+                  <p className="text-[11px] text-slate-500">
+                    Profil: <strong className="text-slate-800">{manageTalentTarget.fullName}</strong>
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  setManageTalentTarget(null);
+                  setManagePinInput("");
+                  setManagePinError(null);
+                }}
+                className="rounded-lg p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600 cursor-pointer"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            {/* Body */}
+            <div className="p-5 space-y-4 text-xs sm:text-sm">
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                  <KeyRound className="h-3.5 w-3.5 text-rose-600" />
+                  <span>Masukkan PIN Pengelola (4 Digit):</span>
+                </label>
+                <input
+                  type="password"
+                  maxLength={10}
+                  value={managePinInput}
+                  onChange={(e) => {
+                    setManagePinInput(e.target.value);
+                    setManagePinError(null);
+                  }}
+                  placeholder="PIN saat mendaftarkan profil"
+                  className="w-full rounded-xl border border-slate-200 px-3 py-2 text-base sm:text-sm font-mono font-bold tracking-widest text-slate-900 focus:border-rose-500 focus:outline-none"
+                />
+                {managePinError && (
+                  <p className="text-[11px] font-semibold text-rose-600">{managePinError}</p>
+                )}
+              </div>
+
+              <div className="rounded-2xl border border-slate-100 bg-slate-50 p-3 space-y-1 text-slate-600 text-xs">
+                <p>
+                  Sudah bergabung dengan tim lomba atau ingin menarik profilmu dari pencarian publik?
+                </p>
+                <p className="text-[11px] text-slate-400">
+                  Data profil dan kontakmu akan segera dihapus permanen dari sistem naviable.id.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                disabled={isSubmitting || !managePinInput}
+                onClick={async () => {
+                  if (confirm("Apakah kamu yakin ingin menghapus profil talent ini?")) {
+                    setIsSubmitting(true);
+                    setManagePinError(null);
+                    const res = await deleteTalentProfileWithPinAction(
+                      manageTalentTarget.id,
+                      managePinInput
+                    );
+                    setIsSubmitting(false);
+                    if (res.success) {
+                      showToast(res.message);
+                      setManageTalentTarget(null);
+                      setManagePinInput("");
+                    } else {
+                      setManagePinError(res.message);
+                    }
+                  }
+                }}
+                className="w-full rounded-xl bg-rose-600 hover:bg-rose-700 py-2.5 text-xs font-bold text-white shadow-xs transition-all cursor-pointer disabled:opacity-50"
+              >
+                Hapus Profil dari Talent Pool
+              </button>
+            </div>
           </div>
         </div>
       )}

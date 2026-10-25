@@ -307,7 +307,7 @@ export default async function CompetitionDetailPage({ params }: PageProps) {
                 </svg>
               </div>
               <div>
-                <p className="font-bold text-slate-900">Terverifikasi oleh Tim anviable.id</p>
+                <p className="font-bold text-slate-900">Terverifikasi oleh Tim naviable.id</p>
                 <p className="text-[11px] text-emerald-700">
                   Penyelenggara kredibel & link registrasi valid.
                 </p>

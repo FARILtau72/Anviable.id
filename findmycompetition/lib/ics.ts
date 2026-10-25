@@ -25,14 +25,14 @@ function escapeICS(text: string): string {
 
 export function generateICS(event: ICSEvent): string {
   const now = new Date();
-  const uid = `${now.getTime()}-${Math.random().toString(36).slice(2)}@anviable.id`;
+  const uid = `${now.getTime()}-${Math.random().toString(36).slice(2)}@naviable.id`;
   const start = formatICSDate(event.startDate);
   const end = formatICSDate(event.endDate ?? event.startDate);
 
   const lines: string[] = [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
-    "PRODID:-//anviable.id//anviable.id//ID",
+    "PRODID:-//naviable.id//naviable.id//ID",
     "CALSCALE:GREGORIAN",
     "METHOD:PUBLISH",
     "BEGIN:VEVENT",

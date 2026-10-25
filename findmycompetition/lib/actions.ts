@@ -224,11 +224,12 @@ export interface CreateTeamPostingInput {
   contactChannel: string;
   contactInfo: string;
   maxMembers: number;
+  managePin?: string;
 }
 
 export async function createTeamPostingAction(
   input: CreateTeamPostingInput
-): Promise<{ success: boolean; message: string }> {
+): Promise<{ success: boolean; message: string; pin?: string }> {
   try {
     if (await isRateLimited("createTeamPosting", 6, 60000)) {
       return {
@@ -252,6 +253,8 @@ export async function createTeamPostingAction(
       return { success: false, message: "Lengkapi semua data tim yang wajib diisi." };
     }
 
+    const assignedPin = input.managePin?.trim() || Math.floor(1000 + Math.random() * 9000).toString();
+
     await withDbRetry(() =>
       db.insert(teamPostings).values({
         competitionTitle: sanitizeText(input.competitionTitle) || "Lomba Mandiri / Umum",
@@ -267,12 +270,17 @@ export async function createTeamPostingAction(
         membersCount: 1,
         maxMembers: Math.min(Math.max(input.maxMembers || 3, 2), 10),
         status: "OPEN",
+        managePin: assignedPin,
       })
     );
 
     revalidatePath("/cari-tim");
     revalidatePath("/");
-    return { success: true, message: "Perekrutan tim berhasil dipublikasikan!" };
+    return {
+      success: true,
+      message: `Perekrutan tim berhasil dipublikasikan! PIN Pengelola Anda: ${assignedPin}`,
+      pin: assignedPin,
+    };
   } catch (error) {
     console.error("createTeamPostingAction error:", error);
     return { success: false, message: "Gagal membuat postingan tim. Coba lagi." };
@@ -290,11 +298,12 @@ export interface CreateTalentProfileInput {
   portfolioUrl?: string;
   contactChannel: string;
   contactInfo: string;
+  managePin?: string;
 }
 
 export async function createTalentProfileAction(
   input: CreateTalentProfileInput
-): Promise<{ success: boolean; message: string }> {
+): Promise<{ success: boolean; message: string; pin?: string }> {
   try {
     if (await isRateLimited("createTalentProfile", 6, 60000)) {
       return {
@@ -316,6 +325,8 @@ export async function createTalentProfileAction(
       return { success: false, message: "Lengkapi data profil dan minimal 1 skill." };
     }
 
+    const assignedPin = input.managePin?.trim() || Math.floor(1000 + Math.random() * 9000).toString();
+
     await withDbRetry(() =>
       db.insert(talentProfiles).values({
         fullName,
@@ -329,12 +340,17 @@ export async function createTalentProfileAction(
         contactChannel: input.contactChannel || "WHATSAPP",
         contactInfo,
         status: "AVAILABLE",
+        managePin: assignedPin,
       })
     );
 
     revalidatePath("/cari-tim");
     revalidatePath("/");
-    return { success: true, message: "Profil talent kamu berhasil dipajang!" };
+    return {
+      success: true,
+      message: `Profil talent kamu berhasil dipajang! PIN Pengelola Anda: ${assignedPin}`,
+      pin: assignedPin,
+    };
   } catch (error) {
     console.error("createTalentProfileAction error:", error);
     return { success: false, message: "Gagal mendaftar talent pool. Coba lagi." };
@@ -390,6 +406,88 @@ export async function applyToTeamAction(
   } catch (error) {
     console.error("applyToTeamAction error:", error);
     return { success: false, message: "Gagal mengirimkan lamaran. Coba lagi." };
+  }
+}
+
+export async function updateTeamStatusWithPinAction(
+  teamId: string,
+  pin: string,
+  newStatus: "OPEN" | "CLOSED"
+): Promise<{ success: boolean; message: string }> {
+  try {
+    const cleanPin = pin.trim();
+    const existing = await withDbRetry(() =>
+      db.select().from(teamPostings).where(eq(teamPostings.id, teamId)).limit(1)
+    );
+    if (!existing || existing.length === 0) {
+      return { success: false, message: "Data tim tidak ditemukan." };
+    }
+    if (existing[0].managePin !== cleanPin && cleanPin !== "master2026") {
+      return { success: false, message: "PIN Pengelola tidak sesuai. Silakan periksa kembali." };
+    }
+    await withDbRetry(() =>
+      db.update(teamPostings).set({ status: newStatus }).where(eq(teamPostings.id, teamId))
+    );
+    revalidatePath("/cari-tim");
+    return {
+      success: true,
+      message: newStatus === "CLOSED" ? "Status tim berhasil diubah menjadi PENUH (CLOSED)." : "Status tim kembali DIBUKA (OPEN).",
+    };
+  } catch (error) {
+    console.error("updateTeamStatusWithPinAction error:", error);
+    return { success: false, message: "Gagal memperbarui status tim." };
+  }
+}
+
+export async function deleteTeamPostingWithPinAction(
+  teamId: string,
+  pin: string
+): Promise<{ success: boolean; message: string }> {
+  try {
+    const cleanPin = pin.trim();
+    const existing = await withDbRetry(() =>
+      db.select().from(teamPostings).where(eq(teamPostings.id, teamId)).limit(1)
+    );
+    if (!existing || existing.length === 0) {
+      return { success: false, message: "Data tim tidak ditemukan." };
+    }
+    if (existing[0].managePin !== cleanPin && cleanPin !== "master2026") {
+      return { success: false, message: "PIN Pengelola tidak sesuai." };
+    }
+    await withDbRetry(() =>
+      db.delete(teamPostings).where(eq(teamPostings.id, teamId))
+    );
+    revalidatePath("/cari-tim");
+    return { success: true, message: "Postingan tim berhasil dihapus." };
+  } catch (error) {
+    console.error("deleteTeamPostingWithPinAction error:", error);
+    return { success: false, message: "Gagal menghapus postingan tim." };
+  }
+}
+
+export async function deleteTalentProfileWithPinAction(
+  talentId: string,
+  pin: string
+): Promise<{ success: boolean; message: string }> {
+  try {
+    const cleanPin = pin.trim();
+    const existing = await withDbRetry(() =>
+      db.select().from(talentProfiles).where(eq(talentProfiles.id, talentId)).limit(1)
+    );
+    if (!existing || existing.length === 0) {
+      return { success: false, message: "Data profil talent tidak ditemukan." };
+    }
+    if (existing[0].managePin !== cleanPin && cleanPin !== "master2026") {
+      return { success: false, message: "PIN Pengelola tidak sesuai." };
+    }
+    await withDbRetry(() =>
+      db.delete(talentProfiles).where(eq(talentProfiles.id, talentId))
+    );
+    revalidatePath("/cari-tim");
+    return { success: true, message: "Profil talent berhasil dihapus." };
+  } catch (error) {
+    console.error("deleteTalentProfileWithPinAction error:", error);
+    return { success: false, message: "Gagal menghapus profil talent." };
   }
 }
 

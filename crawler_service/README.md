@@ -1,6 +1,6 @@
-# Anviable.id — Adaptive Web Crawling & Competition Pipeline Subsystem
+# Naviable.id — Adaptive Web Crawling & Competition Pipeline Subsystem
 
-Sub-sistem crawler terdistribusi, adaptif, dan modular untuk **Anviable.id** (platform direktori kompetisi akademik/non-akademik di Indonesia serta team matchmaking). 
+Sub-sistem crawler terdistribusi, adaptif, dan modular untuk **Naviable.id** (platform direktori kompetisi akademik/non-akademik di Indonesia serta team matchmaking). 
 
 Sistem ini didesain oleh Senior Python Web Crawling Engineer dengan prinsip **Zero-AI & Zero-Paid-API dependency**: seluruh proses ekstraksi informasi lomba menggunakan pendekatan deterministik berjenjang (*multi-tier fallback*), validasi skema data ketat (Pydantic v2), deduplikasi berbasis SHA-256 fingerprint, dan penyimpanan langsung ke **TiDB Cloud Serverless**.
 
@@ -69,7 +69,7 @@ crawler_service/
 │   ├── items.py                      # Definisi item Scrapy (CompetitionRawItem)
 │   ├── settings.py                   # Kebijakan rate-limiting, pipelines, middlewares
 │   ├── api/
-│   │   └── main.py                   # REST API FastAPI untuk review & integrasi Anviable
+│   │   └── main.py                   # REST API FastAPI untuk review & integrasi Naviable
 │   ├── extractors/
 │   │   ├── base.py                   # Base class multi-tier extractor
 │   │   ├── jsonld.py                 # Extractor Tier 1: Schema.org Event/EducationEvent
@@ -161,7 +161,7 @@ python -m crawler.schedulers.runner
 
 ### C. Menjalankan Management & Review API (FastAPI)
 
-Untuk menghubungkan data hasil staging dengan backend Anviable.id:
+Untuk menghubungkan data hasil staging dengan backend Naviable.id:
 ```bash
 uvicorn crawler.api.main:app --host 0.0.0.0 --port 8000 --reload
 ```
@@ -185,12 +185,12 @@ pytest tests -v
 
 ## ⚖️ 5. Kepatuhan Hukum & Etika Web Crawling
 
-Sistem crawler Anviable.id dibangun di atas etika rekayasa data yang ketat:
+Sistem crawler Naviable.id dibangun di atas etika rekayasa data yang ketat:
 
 1. **Kepatuhan `robots.txt`**: Engine menghormati direktif `User-agent: *` dan `Disallow` dari setiap domain target. Request otomatis dibatalkan jika dilarang.
 2. **Identitas Bot Transparan**: Setiap HTTP request mengirimkan User-Agent resmi:
    ```
-   AnviableBot/1.0 (+https://anviable.id/bot; media-partner competition indexer; bot@anviable.id)
+   NaviableBot/1.0 (+https://naviable.id/bot; media-partner competition indexer; bot@naviable.id)
    ```
 3. **Pencegahan Overload Server Target**: Menggunakan `AutoThrottle` dan `DomainPolitenessMiddleware` dengan minimal jeda 2.0 detik antar request dan concurrency maksimal 2 request per host.
 4. **Respon Cerdas Rate-Limiting**: Jika menerima kode `HTTP 429 (Too Many Requests)` atau `HTTP 503 (Service Unavailable)`, delay domain otomatis dinaikkan secara eksponensial hingga 60 detik.

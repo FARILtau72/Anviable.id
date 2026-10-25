@@ -3,9 +3,9 @@ import { ShieldCheck, Lock, ArrowLeft, CheckCircle2, EyeOff, Database } from "lu
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Kebijakan Privasi : anviable.id",
+  title: "Kebijakan Privasi : naviable.id",
   description:
-    "Kebijakan privasi dan perlindungan data pengguna platform anviable.id. Transparan, aman, dan mematuhi regulasi perlindungan data pribadi.",
+    "Kebijakan privasi dan perlindungan data pengguna platform naviable.id. Transparan, aman, dan mematuhi regulasi perlindungan data pribadi.",
 };
 
 export default function KebijakanPrivasiPage() {
@@ -32,7 +32,7 @@ export default function KebijakanPrivasiPage() {
           Kebijakan Privasi
         </h1>
         <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed">
-          Terakhir diperbarui: 24 Oktober 2026. anviable.id berkomitmen menjaga kepercayaan pengguna dengan menjunjung tinggi privasi pelajar, guru, dan penyelenggara kompetisi sesuai ketentuan Undang-Undang Perlindungan Data Pribadi (UU PDP).
+          Terakhir diperbarui: 24 Oktober 2026. naviable.id berkomitmen menjaga kepercayaan pengguna dengan menjunjung tinggi privasi pelajar, guru, dan penyelenggara kompetisi sesuai ketentuan Undang-Undang Perlindungan Data Pribadi (UU PDP).
         </p>
       </section>
 
@@ -49,7 +49,7 @@ export default function KebijakanPrivasiPage() {
             </h2>
           </div>
           <p>
-            anviable.id dirancang agar dapat digunakan secara bebas tanpa mewajibkan siswa membuat akun atau mengumpulkan data identitas sensitif hanya untuk sekadar membaca informasi lomba.
+            naviable.id dirancang agar dapat digunakan secara bebas tanpa mewajibkan siswa membuat akun atau mengumpulkan data identitas sensitif hanya untuk sekadar membaca informasi lomba.
           </p>
           <div className="rounded-2xl border border-indigo-100 bg-indigo-50/50 p-4 text-xs sm:text-sm text-indigo-900">
             <strong>Penyimpanan Bookmark (LocalStorage Browser):</strong> Fitur &quot;Lomba Tersimpan&quot; disimpan langsung di memori browser lokal perangkat Anda, bukan di server pelacak kami. Anda memegang kendali penuh untuk menghapus data riwayat ini kapan pun melalui pengaturan browser Anda.
@@ -96,7 +96,7 @@ export default function KebijakanPrivasiPage() {
           <div className="rounded-2xl border border-emerald-200 bg-emerald-50/70 p-4 text-xs sm:text-sm text-emerald-900 flex items-start gap-3">
             <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
             <p>
-              <strong>Komitmen Tanpa Pihak Ketiga:</strong> anviable.id tidak pernah dan tidak akan pernah menjual, menyewakan, atau memperdagangkan data kontak siswa atau panitia kepada pihak ketiga untuk kepentingan iklan pemasaran (ad network spam).
+              <strong>Komitmen Tanpa Pihak Ketiga:</strong> naviable.id tidak pernah dan tidak akan pernah menjual, menyewakan, atau memperdagangkan data kontak siswa atau panitia kepada pihak ketiga untuk kepentingan iklan pemasaran (ad network spam).
             </p>
           </div>
         </section>
