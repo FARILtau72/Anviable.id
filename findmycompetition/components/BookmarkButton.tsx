@@ -90,7 +90,7 @@ export default function BookmarkButton({
 }: {
   competition: BookmarkData;
   className?: string;
-  size?: "default" | "lg";
+  size?: "default" | "md" | "lg";
 }) {
   const { isBookmarked, toggle } = useBookmarks();
   const saved = isBookmarked(competition.id);
@@ -112,7 +112,7 @@ export default function BookmarkButton({
           : saved
           ? "border border-amber-400 bg-amber-400 text-slate-950 shadow-md"
           : "border border-white/20 bg-black/50 text-white backdrop-blur-md hover:bg-black/70",
-        size === "lg" ? "gap-2.5 px-5 py-3 text-sm font-bold w-full" : "h-8 w-8",
+        size === "lg" ? "gap-2.5 px-5 py-3 text-sm font-bold w-full" : size === "md" ? "h-11 w-11" : "h-8 w-8",
         className
       )}
       aria-label={saved ? "Hapus dari tersimpan" : "Simpan lomba"}
