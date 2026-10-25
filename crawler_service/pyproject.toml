@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "anviable-crawler"
+version = "0.1.0"
+description = "Production-grade, adaptive, and modular web crawling engine for Anviable.id backed by TiDB"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+    { name = "Anviable Data Engineering Team", email = "engineering@anviable.id" }
+]
+dependencies = [
+    "scrapy>=2.11.0",
+    "scrapy-playwright>=0.0.34",
+    "playwright>=1.40.0",
+    "pydantic>=2.6.0",
+    "pydantic-settings>=2.2.0",
+    "parsel>=1.9.0",
+    "beautifulsoup4>=4.12.0",
+    "python-dateutil>=2.8.2",
+    "fastapi>=0.110.0",
+    "uvicorn>=0.28.0",
+    "sqlalchemy>=2.0.28",
+    "pymysql>=1.1.0",
+    "aiomysql>=0.2.0",
+    "cryptography>=42.0.0",
+    "python-dotenv>=1.0.1",
+    "apscheduler>=3.10.4",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "black>=24.0.0",
+    "ruff>=0.3.0",
+]

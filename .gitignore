@@ -1,0 +1,99 @@
+# ==============================================================================
+# Master Root .gitignore for Anviable.id Platform (Zero-Leak Security Policy)
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. Environment Variables & Secrets (CRITICAL: NEVER COMMIT)
+# ------------------------------------------------------------------------------
+.env
+.env.*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+**/.env
+**/.env.*
+**/.env.local
+**/.env.production
+
+# Exception: Allow example configuration templates
+!.env.example
+!**/.env.example
+
+# ------------------------------------------------------------------------------
+# 2. Node & Web Application (findmycompetition)
+# ------------------------------------------------------------------------------
+node_modules/
+**/node_modules/
+.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# Next.js Build Output & Cache
+.next/
+**/.next/
+out/
+build/
+dist/
+.vercel/
+*.tsbuildinfo
+next-env.d.ts
+
+# Logs & Debugging
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-debug.log*
+*.log
+
+# ------------------------------------------------------------------------------
+# 3. Python & Crawler Subsystem (crawler_service)
+# ------------------------------------------------------------------------------
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+**/venv/
+**/.venv/
+
+# Pytest & Coverage
+.pytest_cache/
+**/.pytest_cache/
+.coverage
+htmlcov/
+
+# Scrapy Engine Artifacts
+.scrapy/
+**/.scrapy/
+httpcache/
+**/httpcache/
+
+# ------------------------------------------------------------------------------
+# 4. OS, Editor, & Scratch Temp Files
+# ------------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+scratch/
+**/scratch/
+.system_generated/

@@ -1,0 +1,143 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --color-border: #e2e8f0;
+  --color-input: #f8fafc;
+  --color-ring: #4f46e5;
+  --color-background: #ffffff;
+  --color-foreground: #0f172a;
+
+  --color-primary: #4338ca;
+  --color-primary-foreground: #ffffff;
+
+  --color-coral: #ff6b00;
+  --color-coral-hover: #e65c00;
+
+  --color-secondary: #f1f5f9;
+  --color-secondary-foreground: #1e293b;
+
+  --color-muted: #f8fafc;
+  --color-muted-foreground: #64748b;
+
+  --color-card: #ffffff;
+  --color-card-foreground: #0f172a;
+
+  --color-popover: #ffffff;
+  --color-popover-foreground: #0f172a;
+
+  --color-warning: #f59e0b;
+  --color-success: #10b981;
+}
+
+* {
+  border-color: #e2e8f0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: #f8fafc;
+  color: #0f172a;
+  min-height: 100vh;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Touch friendly scrollbars */
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* Clean Architectural Background Accent (No AI Radial Glow) */
+.hero-glow-layer {
+  display: none;
+}
+
+/* Base Card Styling (Matte, High-Contrast, Subdued Elevation per R-12) */
+.card-clean {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.05);
+  transition: all 0.2s ease-in-out;
+}
+
+.card-clean:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 6px 16px -2px rgba(15, 23, 42, 0.08);
+}
+
+/* High-Contrast Brand Typography (No blurry multi-color AI gradients per R-01) */
+.brand-accent-text {
+  color: #3730a3;
+}
+
+.gradient-ptn {
+  color: #3730a3;
+  font-weight: 900;
+}
+
+.gradient-text {
+  color: #1e293b;
+  font-weight: 800;
+}
+
+/* High-contrast Action CTA button (Deliberate Warm Accent) */
+.btn-coral {
+  background-color: #ea580c;
+  color: #ffffff;
+  font-weight: 700;
+  transition: all 0.15s ease-in-out;
+}
+
+.btn-coral:hover {
+  background-color: #c2410c;
+  box-shadow: 0 4px 12px -2px rgba(234, 88, 12, 0.3);
+}
+
+.btn-coral:active {
+  transform: translateY(0);
+}
+
+/* Accessible Focus Ring per R-32 */
+:focus-visible {
+  outline: 2px solid #4338ca;
+  outline-offset: 2px;
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-left {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.35s ease-out;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-slide-left {
+  animation: slide-left 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}

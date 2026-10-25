@@ -1,0 +1,45 @@
+{
+  "name": "findmycompetition",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "db:push": "drizzle-kit push",
+    "db:seed": "tsx scripts/seed.ts",
+    "scrape": "tsx scripts/scraper.ts"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^3.9.0",
+    "clsx": "^2.1.1",
+    "dayjs": "^1.11.13",
+    "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.33.0",
+    "lucide-react": "^0.446.0",
+    "mysql2": "^3.11.3",
+    "next": "16.4.3",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "react-hook-form": "^7.53.0",
+    "tailwind-merge": "^2.5.2",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "@tailwindcss/turbopack": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "cheerio": "^1.0.0",
+    "drizzle-kit": "^0.24.2",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.3",
+    "postcss": "^8.5.31",
+    "tailwindcss": "^4",
+    "tsx": "^4.19.1",
+    "typescript": "^5"
+  },
+  "packageManager": "pnpm@10.30.3"
+}
