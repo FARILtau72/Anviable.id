@@ -10,18 +10,16 @@ import FilterSidebar from "@/components/FilterSidebar";
 import QuickFilterBar from "@/components/QuickFilterBar";
 import {
   Trophy,
-  Sparkles,
   ArrowUpDown,
   Compass,
   CheckCircle2,
   Gift,
-  Flame,
   PlusCircle,
 } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Kumpulan Lomba SMA, SMK & MA 2026 Terlengkap : naviable.id",
+  title: "Kumpulan Lomba SMA, SMK & MA 2026 Terlengkap - naviable.id",
   description:
     "Jelajahi dan saring seluruh ajang perlombaan akademik, teknologi, seni, riset, dan bisnis terverifikasi untuk siswa SMA, SMK, dan MA di seluruh Indonesia.",
 };
@@ -129,42 +127,57 @@ export default async function KumpulanLombaPage({ searchParams }: PageProps) {
   return (
     <div className="space-y-8 pb-16">
       {/* 1. Header Banner */}
-      <section className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 sm:p-10 shadow-xs">
-        <div className="relative z-10 max-w-3xl space-y-3">
-          <span className="text-xs font-semibold text-slate-500">
-            Katalog Resmi Terverifikasi
+      <section className="neo-box overflow-hidden bg-white border-2 border-black shadow-[6px_6px_0px_#000]">
+        {/* Retro Window Titlebar */}
+        <div className="retro-window-header border-b-2 border-black bg-[#E8F0FE] px-4 py-2 flex items-center justify-between">
+          <div className="retro-dots">
+            <span className="retro-dot bg-[#EA4335]" />
+            <span className="retro-dot bg-[#FBBC04]" />
+            <span className="retro-dot bg-[#34A853]" />
+            <span className="ml-2 font-mono text-[11px] font-black text-black">
+              naviable://katalog_lomba.sys
+            </span>
+          </div>
+          <span className="neo-badge bg-[#34A853] text-white px-2 py-0.5 text-[9px]">
+            TERVERIFIKASI
           </span>
+        </div>
 
-          <h1 className="text-3xl font-black tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+        <div className="p-6 sm:p-10 space-y-4">
+          <div className="neo-badge bg-[#FEF7E0] text-black px-2.5 py-1 text-xs">
+            <span>KATALOG RESMI TERVERIFIKASI</span>
+          </div>
+
+          <h1 className="text-3xl font-black tracking-tight text-black sm:text-4xl lg:text-5xl">
             Kumpulan Lomba & Olimpiade Pelajar Indonesia
           </h1>
 
-          <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+          <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-medium max-w-3xl">
             Jelajahi dan saring seluruh ajang perlombaan akademik, teknologi, seni, riset,
             dan bisnis terverifikasi untuk siswa SMA, SMK, dan MA. Bebas scam, lengkap
             dengan tautan registrasi dan juknis resmi.
           </p>
 
           {/* Quick Metrics Bar */}
-          <div className="flex flex-wrap items-center gap-4 pt-3 text-xs sm:text-sm font-semibold text-slate-700">
-            <div className="flex items-center gap-1.5 rounded-lg bg-slate-50 border border-slate-200/60 px-3 py-1.5">
-              <Trophy className="h-4 w-4 text-amber-500" />
+          <div className="flex flex-wrap items-center gap-3 pt-2 text-xs sm:text-sm font-black">
+            <div className="neo-badge bg-[#FAF8F5] text-black px-3 py-1.5 flex items-center gap-1.5">
+              <Trophy className="h-4 w-4 text-[#FBBC04]" />
               <span>{totalActive} Kompetisi Aktif</span>
             </div>
-            <div className="flex items-center gap-1.5 rounded-lg bg-emerald-50 border border-emerald-200/60 px-3 py-1.5 text-emerald-800">
-              <Gift className="h-4 w-4 text-emerald-600" />
+            <div className="neo-badge bg-[#E6F4EA] text-[#137333] px-3 py-1.5 flex items-center gap-1.5">
+              <Gift className="h-4 w-4 text-[#34A853]" />
               <span>{totalFree} Pendaftaran Gratis</span>
             </div>
-            <div className="flex items-center gap-1.5 rounded-lg bg-indigo-50 border border-indigo-200/60 px-3 py-1.5 text-indigo-800">
-              <CheckCircle2 className="h-4 w-4 text-indigo-600" />
+            <div className="neo-badge bg-[#E8F0FE] text-[#1967D2] px-3 py-1.5 flex items-center gap-1.5">
+              <CheckCircle2 className="h-4 w-4 text-[#4285F4]" />
               <span>{totalNasional} Skala Nasional</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 2. Category Tabs Horizontal Scroll (Edge-to-edge touch scroll on mobile) */}
-      <section className="-mx-4 flex items-center gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0 scrollbar-none">
+      {/* 2. Category Tabs Horizontal Scroll */}
+      <section className="-mx-4 flex items-center gap-2 overflow-x-auto px-4 pb-2 sm:mx-0 sm:px-0 scrollbar-none">
         {CATEGORY_TABS.map((tab) => {
           const isActive =
             (!category && tab.categoryKey === "") || category === tab.categoryKey;
@@ -176,10 +189,10 @@ export default async function KumpulanLombaPage({ searchParams }: PageProps) {
             <Link
               key={tab.value}
               href={href}
-              className={`shrink-0 rounded-full px-4 py-2 text-xs sm:text-sm font-bold transition-all ${
+              className={`neo-btn px-4 py-2 text-xs sm:text-sm font-black whitespace-nowrap ${
                 isActive
-                  ? "bg-slate-900 text-white shadow-xs"
-                  : "border border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900 shadow-2xs"
+                  ? "bg-black text-white shadow-[3px_3px_0px_#000]"
+                  : "bg-white text-black shadow-[2px_2px_0px_#000] hover:bg-[#FAF8F5]"
               }`}
             >
               {tab.label}
@@ -198,7 +211,7 @@ export default async function KumpulanLombaPage({ searchParams }: PageProps) {
         {/* Sidebar Filter */}
         <Suspense
           fallback={
-            <div className="w-full lg:w-72 h-96 rounded-2xl bg-slate-100 animate-pulse" />
+            <div className="w-full lg:w-72 h-96 rounded-xl border-2 border-black bg-white shadow-[4px_4px_0px_#000] animate-pulse" />
           }
         >
           <FilterSidebar className="w-full lg:w-72 lg:sticky lg:top-24 lg:self-start" />
@@ -206,14 +219,14 @@ export default async function KumpulanLombaPage({ searchParams }: PageProps) {
 
         {/* Results Grid */}
         <div className="flex-1 w-full space-y-4">
-          <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center sm:justify-between text-xs sm:text-sm text-slate-500 font-medium">
+          <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center sm:justify-between text-xs sm:text-sm font-bold text-slate-700">
             <span>
-              Menampilkan <strong className="text-slate-900">{results.length}</strong> kompetisi
+              Menampilkan <strong className="text-black font-black font-mono">{results.length}</strong> kompetisi
             </span>
             <div className="flex items-center gap-2">
-              <ArrowUpDown className="h-3.5 w-3.5 text-slate-400" />
-              <span className="text-slate-600 font-semibold">Urutkan:</span>
-              <div className="inline-flex rounded-lg border border-slate-200 bg-white p-0.5 text-xs font-semibold">
+              <ArrowUpDown className="h-3.5 w-3.5 text-black" />
+              <span className="text-black font-black">Urutkan:</span>
+              <div className="inline-flex rounded-lg border-2 border-black bg-white p-0.5 text-xs font-black shadow-[2px_2px_0px_#000]">
                 <Link
                   href={`/lomba?${new URLSearchParams({
                     ...(q ? { q } : {}),
@@ -224,8 +237,8 @@ export default async function KumpulanLombaPage({ searchParams }: PageProps) {
                   }).toString()}`}
                   className={`rounded-md px-2 py-1 transition-all ${
                     !sort || sort === "deadline_asc"
-                      ? "bg-indigo-600 text-white"
-                      : "text-slate-600 hover:text-slate-900"
+                      ? "bg-black text-white"
+                      : "text-black hover:bg-[#FAF8F5]"
                   }`}
                 >
                   Deadline
@@ -240,8 +253,8 @@ export default async function KumpulanLombaPage({ searchParams }: PageProps) {
                   }).toString()}`}
                   className={`rounded-md px-2 py-1 transition-all ${
                     sort === "popular"
-                      ? "bg-indigo-600 text-white"
-                      : "text-slate-600 hover:text-slate-900"
+                      ? "bg-black text-white"
+                      : "text-black hover:bg-[#FAF8F5]"
                   }`}
                 >
                   Populer
@@ -256,8 +269,8 @@ export default async function KumpulanLombaPage({ searchParams }: PageProps) {
                   }).toString()}`}
                   className={`rounded-md px-2 py-1 transition-all ${
                     sort === "latest"
-                      ? "bg-indigo-600 text-white"
-                      : "text-slate-600 hover:text-slate-900"
+                      ? "bg-black text-white"
+                      : "text-black hover:bg-[#FAF8F5]"
                   }`}
                 >
                   Terbaru
@@ -267,34 +280,27 @@ export default async function KumpulanLombaPage({ searchParams }: PageProps) {
           </div>
 
           {results.length === 0 ? (
-            <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-200 bg-white py-24 text-center px-4 shadow-xs">
-              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-slate-100 mb-4">
-                <Trophy className="h-8 w-8 text-slate-400" />
+            <div className="neo-box flex flex-col items-center justify-center bg-white py-20 text-center px-4">
+              <div className="flex h-16 w-16 items-center justify-center rounded-xl border-2 border-black bg-[#FEF7E0] shadow-[2px_2px_0px_#000] mb-4 text-black">
+                <Trophy className="h-8 w-8 text-[#FBBC04]" />
               </div>
-              <h3 className="text-lg font-bold text-slate-900">
+              <h3 className="text-lg font-black text-black">
                 Tidak ada kompetisi yang cocok
               </h3>
-              <p className="mt-1 text-xs sm:text-sm text-slate-500 max-w-sm">
-                Coba ubah kata kunci pencarian atau sesuaikan pilihan filter kategori dan tingkat wilayah.
+              <p className="mt-1 text-xs sm:text-sm text-slate-600 max-w-sm font-medium">
+                Coba sesuaikan kata kunci pencarian atau reset filter kategori dan tingkat wilayah.
               </p>
               <Link
                 href="/lomba"
-                className="mt-5 inline-flex items-center gap-1.5 rounded-xl bg-indigo-600 px-4 py-2 text-xs font-bold text-white hover:bg-indigo-700 transition-all shadow-xs"
+                className="neo-btn neo-btn-blue mt-5 px-5 py-2 text-xs font-black"
               >
                 Reset Semua Filter
               </Link>
             </div>
           ) : (
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3 items-stretch">
-              {results.map((comp, i) => (
-                <div
-                  key={comp.id}
-                  className="animate-fade-in flex flex-col h-full"
-                  style={{
-                    animationDelay: `${i * 35}ms`,
-                    animationFillMode: "backwards",
-                  }}
-                >
+              {results.map((comp) => (
+                <div key={comp.id} className="flex flex-col h-full">
                   <CompetitionCard competition={comp} />
                 </div>
               ))}
@@ -304,16 +310,16 @@ export default async function KumpulanLombaPage({ searchParams }: PageProps) {
       </div>
 
       {/* 5. Sticky Bottom Bar for Event Organizers */}
-      <section className="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-gradient-to-r from-slate-900 to-indigo-950 p-6 text-white shadow-md">
+      <section className="neo-box bg-[#FAF8F5] border-2 border-black p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-[6px_6px_0px_#000]">
         <div className="space-y-1 text-center sm:text-left">
-          <h3 className="text-lg font-bold">Punya Info Lomba Resmi Sekolah atau Kampus?</h3>
-          <p className="text-xs sm:text-sm text-slate-300">
+          <h3 className="text-lg font-black text-black">Punya Info Lomba Resmi Sekolah atau Kampus?</h3>
+          <p className="text-xs sm:text-sm text-slate-700 font-medium">
             Daftarkan lomba agendamu sekarang tanpa biaya. Jangkau ratusan ribu siswa berprestasi di seluruh Indonesia.
           </p>
         </div>
         <Link
           href="/submit"
-          className="btn-coral shrink-0 inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs sm:text-sm font-bold text-white shadow-md"
+          className="neo-btn neo-btn-blue shrink-0 px-6 py-3 text-xs sm:text-sm font-black flex items-center gap-2"
         >
           <PlusCircle className="h-4 w-4" />
           <span>Pasang Lomba Gratis</span>

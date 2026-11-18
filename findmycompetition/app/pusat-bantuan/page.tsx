@@ -8,7 +8,6 @@ import {
   MessageCircle,
   ArrowLeft,
   ChevronDown,
-  Sparkles,
   BookOpen,
   Send,
   CheckCircle2,
@@ -85,7 +84,7 @@ export default function PusatBantuanPage() {
       <div>
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-500 hover:text-indigo-600 transition-colors"
+          className="neo-btn neo-btn-white px-3 py-1.5 text-xs font-black inline-flex items-center gap-1.5"
         >
           <ArrowLeft className="h-4 w-4" />
           <span>Kembali ke Beranda</span>
@@ -93,59 +92,77 @@ export default function PusatBantuanPage() {
       </div>
 
       {/* Header Banner */}
-      <section className="rounded-3xl border border-slate-200/80 bg-white p-6 sm:p-10 shadow-xs">
-        <div className="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50 px-3.5 py-1 text-xs font-bold text-indigo-700 mb-4">
-          <HelpCircle className="h-3.5 w-3.5 text-indigo-600" />
-          <span>Layanan Bantuan & Dukungan</span>
+      <section className="neo-box overflow-hidden bg-white border-2 border-black shadow-[6px_6px_0px_#000]">
+        {/* Retro Window Header */}
+        <div className="retro-window-header border-b-2 border-black bg-[#E8F0FE] px-4 py-2 flex items-center justify-between">
+          <div className="retro-dots">
+            <span className="retro-dot bg-[#EA4335]" />
+            <span className="retro-dot bg-[#FBBC04]" />
+            <span className="retro-dot bg-[#34A853]" />
+            <span className="ml-2 font-mono text-[11px] font-black text-black">
+              naviable://help_center.sys
+            </span>
+          </div>
+          <span className="neo-badge bg-[#34A853] text-white px-2 py-0.5 text-[9px]">
+            ONLINE SUPPORT
+          </span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-slate-900">
-          Pusat Bantuan naviable.id
-        </h1>
-        <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed">
-          Temukan jawaban atas pertanyaan seputar partisipasi kompetisi, publikasi lomba,
-          atau hubungi kurator kami langsung jika memerlukan bantuan teknis.
-        </p>
 
-        {/* 3 Quick Action Cards */}
-        <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <Link
-            href="/lomba"
-            className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 p-4 hover:border-indigo-300 hover:bg-indigo-50/40 transition-colors"
-          >
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-600 text-white shrink-0">
-              <Compass className="h-5 w-5" />
-            </div>
-            <div>
-              <h4 className="text-xs font-bold text-slate-900">Jelajahi Lomba</h4>
-              <p className="text-[11px] text-slate-500">Filter kompetisi & juknis</p>
-            </div>
-          </Link>
+        <div className="p-6 sm:p-10">
+          <div className="neo-badge bg-[#FEF7E0] text-black px-2.5 py-1 text-xs mb-3">
+            <HelpCircle className="h-3.5 w-3.5 mr-1" />
+            <span>PUSAT BANTUAN & PANDUAN</span>
+          </div>
 
-          <Link
-            href="/submit"
-            className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 p-4 hover:border-orange-300 hover:bg-orange-50/40 transition-colors"
-          >
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-500 text-white shrink-0">
-              <PlusCircle className="h-5 w-5" />
-            </div>
-            <div>
-              <h4 className="text-xs font-bold text-slate-900">Pasang Lomba</h4>
-              <p className="text-[11px] text-slate-500">Gratis untuk panitia</p>
-            </div>
-          </Link>
+          <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-black">
+            Pusat Bantuan naviable.id
+          </h1>
+          <p className="mt-2 text-sm sm:text-base text-slate-700 leading-relaxed font-medium">
+            Temukan jawaban atas pertanyaan seputar partisipasi kompetisi, publikasi lomba,
+            atau hubungi kurator kami langsung jika memerlukan bantuan teknis.
+          </p>
 
-          <Link
-            href="/cari-tim"
-            className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 p-4 hover:border-emerald-300 hover:bg-emerald-50/40 transition-colors"
-          >
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-600 text-white shrink-0">
-              <Users className="h-5 w-5" />
-            </div>
-            <div>
-              <h4 className="text-xs font-bold text-slate-900">Cari Partner Tim</h4>
-              <p className="text-[11px] text-slate-500">Kolaborasi antarsekolah</p>
-            </div>
-          </Link>
+          {/* 3 Quick Action Cards */}
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <Link
+              href="/lomba"
+              className="neo-btn neo-btn-white p-4 flex items-center gap-3 text-left w-full justify-start"
+            >
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg border-2 border-black bg-[#4285F4] text-white shrink-0 shadow-[2px_2px_0px_#000]">
+                <Compass className="h-5 w-5" />
+              </div>
+              <div>
+                <h4 className="text-xs font-black text-black">Jelajahi Lomba</h4>
+                <p className="font-mono text-[10px] text-slate-600">Filter & juknis</p>
+              </div>
+            </Link>
+
+            <Link
+              href="/submit"
+              className="neo-btn neo-btn-white p-4 flex items-center gap-3 text-left w-full justify-start"
+            >
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg border-2 border-black bg-[#FBBC04] text-black shrink-0 shadow-[2px_2px_0px_#000]">
+                <PlusCircle className="h-5 w-5" />
+              </div>
+              <div>
+                <h4 className="text-xs font-black text-black">Pasang Lomba</h4>
+                <p className="font-mono text-[10px] text-slate-600">Gratis panitia</p>
+              </div>
+            </Link>
+
+            <Link
+              href="/cari-tim"
+              className="neo-btn neo-btn-white p-4 flex items-center gap-3 text-left w-full justify-start"
+            >
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg border-2 border-black bg-[#34A853] text-white shrink-0 shadow-[2px_2px_0px_#000]">
+                <Users className="h-5 w-5" />
+              </div>
+              <div>
+                <h4 className="text-xs font-black text-black">Cari Partner Tim</h4>
+                <p className="font-mono text-[10px] text-slate-600">Matchmaking</p>
+              </div>
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -153,8 +170,8 @@ export default function PusatBantuanPage() {
       <div className="space-y-6">
         {FAQS_HELP.map((section, sIdx) => (
           <div key={section.category} className="space-y-3">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-indigo-700 px-1">
-              {section.category}
+            <h2 className="font-mono text-xs font-black uppercase tracking-wider text-black px-1">
+              [{section.category}]
             </h2>
 
             <div className="space-y-3">
@@ -165,23 +182,23 @@ export default function PusatBantuanPage() {
                 return (
                   <div
                     key={item.q}
-                    className="overflow-hidden rounded-2xl border border-slate-200 bg-white transition-all shadow-2xs"
+                    className="overflow-hidden rounded-xl border-2 border-black bg-white shadow-[3px_3px_0px_#000]"
                   >
                     <button
                       type="button"
                       onClick={() => toggleItem(key)}
-                      className="flex w-full items-center justify-between p-4 sm:p-5 text-left text-sm font-bold text-slate-900 hover:text-indigo-600 transition-colors cursor-pointer"
+                      className="flex w-full items-center justify-between p-4 sm:p-5 text-left text-sm font-black text-black hover:bg-[#FAF8F5] transition-colors cursor-pointer"
                     >
                       <span className="pr-4">{item.q}</span>
                       <ChevronDown
                         className={cn(
-                          "h-4 w-4 shrink-0 text-slate-400 transition-transform duration-200",
-                          isOpen && "rotate-180 text-indigo-600"
+                          "h-5 w-5 shrink-0 stroke-[2.5] text-black transition-transform duration-200",
+                          isOpen && "rotate-180 text-[#4285F4]"
                         )}
                       />
                     </button>
                     {isOpen && (
-                      <div className="border-t border-slate-100 bg-slate-50/50 px-4 py-4 sm:px-5 text-xs sm:text-sm leading-relaxed text-slate-600 animate-fade-in">
+                      <div className="border-t-2 border-black bg-[#FAF8F5] px-4 py-4 sm:px-5 text-xs sm:text-sm leading-relaxed text-slate-800 font-medium animate-fade-in">
                         {item.a}
                       </div>
                     )}
@@ -194,46 +211,46 @@ export default function PusatBantuanPage() {
       </div>
 
       {/* Contact & Support Channels */}
-      <section className="rounded-3xl border border-slate-200/80 bg-white p-6 sm:p-10 shadow-xs space-y-6">
+      <section className="neo-box overflow-hidden bg-white border-2 border-black shadow-[6px_6px_0px_#000] p-6 sm:p-10 space-y-6">
         <div>
-          <h2 className="text-xl font-black text-slate-900">
+          <h2 className="text-xl font-black text-black">
             Masih Butuh Bantuan Lain?
           </h2>
-          <p className="mt-1 text-xs sm:text-sm text-slate-500">
+          <p className="mt-1 text-xs sm:text-sm text-slate-600 font-medium">
             Kirimkan pertanyaan, laporan koreksi data lomba, atau kerja sama kemitraan kepada tim kami.
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5 space-y-2">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-100 text-indigo-700 mb-3">
+          <div className="rounded-xl border-2 border-black bg-[#FAF8F5] p-5 space-y-2 shadow-[2px_2px_0px_#000]">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg border-2 border-black bg-[#E8F0FE] text-[#1967D2] mb-3 shadow-[1px_1px_0px_#000]">
               <Mail className="h-5 w-5" />
             </div>
-            <h3 className="text-sm font-bold text-slate-900">Email Dukungan Resmi</h3>
-            <p className="text-xs text-slate-500">
+            <h3 className="text-sm font-black text-black">Email Dukungan Resmi</h3>
+            <p className="text-xs text-slate-600 font-medium">
               Pertanyaan umum, laporan kompetisi tidak valid, atau kendala teknis.
             </p>
             <a
               href="mailto:halo@naviable.id"
-              className="inline-block text-xs font-bold text-indigo-600 hover:underline pt-1"
+              className="inline-block font-mono text-xs font-black text-[#4285F4] hover:underline pt-1"
             >
               halo@naviable.id
             </a>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5 space-y-2">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700 mb-3">
+          <div className="rounded-xl border-2 border-black bg-[#FAF8F5] p-5 space-y-2 shadow-[2px_2px_0px_#000]">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg border-2 border-black bg-[#E6F4EA] text-[#137333] mb-3 shadow-[1px_1px_0px_#000]">
               <MessageCircle className="h-5 w-5" />
             </div>
-            <h3 className="text-sm font-bold text-slate-900">Dukungan Komunitas Siswa</h3>
-            <p className="text-xs text-slate-500">
+            <h3 className="text-sm font-black text-black">Dukungan Komunitas Siswa</h3>
+            <p className="text-xs text-slate-600 font-medium">
               Diskusi persiapan olimpiade & informasi seputar SNBP jalur prestasi.
             </p>
             <a
               href="https://discord.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block text-xs font-bold text-emerald-600 hover:underline pt-1"
+              className="inline-block font-mono text-xs font-black text-[#137333] hover:underline pt-1"
             >
               Gabung Discord Pelajar →
             </a>
@@ -241,14 +258,14 @@ export default function PusatBantuanPage() {
         </div>
 
         {/* Quick Contact Form */}
-        <div className="border-t border-slate-100 pt-6 space-y-4">
-          <h3 className="text-sm font-bold text-slate-900">
+        <div className="border-t-2 border-black/10 pt-6 space-y-4">
+          <h3 className="text-sm font-black text-black">
             Kirim Pesan Cepat ke Tim Kurator
           </h3>
 
           {formSent ? (
-            <div className="flex items-center gap-2 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-xs font-bold text-emerald-800 animate-fade-in">
-              <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0" />
+            <div className="flex items-center gap-2 rounded-xl border-2 border-black bg-[#E6F4EA] p-4 text-xs font-black text-[#137333] shadow-[3px_3px_0px_#000] animate-fade-in">
+              <CheckCircle2 className="h-5 w-5 shrink-0" />
               <span>Terima kasih! Pesan bantuan Anda telah terkirim ke tim kurator naviable.id.</span>
             </div>
           ) : (
@@ -259,7 +276,7 @@ export default function PusatBantuanPage() {
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
                   placeholder="Subjek pertanyaan (misal: Perpanjangan deadline lomba / Koreksi Juknis)"
-                  className="h-10 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 text-xs text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600/20"
+                  className="h-11 w-full rounded-lg border-2 border-black bg-[#FAF8F5] px-3.5 text-xs font-semibold text-black placeholder:text-slate-500 focus:bg-white focus:outline-none focus:shadow-[2px_2px_0px_#000]"
                 />
               </div>
               <div>
@@ -269,12 +286,12 @@ export default function PusatBantuanPage() {
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="Tuliskan pesan atau tautan lomba yang ingin ditanyakan..."
                   required
-                  className="w-full rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600/20"
+                  className="w-full rounded-lg border-2 border-black bg-[#FAF8F5] p-3 text-xs font-semibold text-black placeholder:text-slate-500 focus:bg-white focus:outline-none focus:shadow-[2px_2px_0px_#000]"
                 />
               </div>
               <button
                 type="submit"
-                className="btn-coral inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs font-bold cursor-pointer"
+                className="neo-btn neo-btn-blue px-6 py-2.5 text-xs font-black inline-flex items-center gap-2"
               >
                 <Send className="h-3.5 w-3.5" />
                 <span>Kirim Pesan</span>

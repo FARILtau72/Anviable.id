@@ -4,7 +4,6 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import {
   Search,
-  Filter,
   CheckCircle2,
   GraduationCap,
   Landmark,
@@ -18,8 +17,6 @@ import {
   Award,
   Users,
   ArrowRight,
-  ShieldCheck,
-  Sparkles,
 } from "lucide-react";
 import CompetitionCard, { type CompetitionCardData } from "@/components/CompetitionCard";
 
@@ -47,39 +44,39 @@ const MAJOR_OPTIONS: { id: SmkMajorTier; label: string; icon: typeof Laptop; des
   },
   {
     id: "RPL_TKJ",
-    label: "RPL, TKJ & Cyber Security",
+    label: "RPL, TKJ & Cyber",
     icon: Laptop,
-    desc: "Coding, Web Dev, Mobile, Cloud & Jaringan",
+    desc: "Coding, Web Dev, Mobile & Jaringan",
   },
   {
     id: "DKV_DESAIN",
-    label: "DKV, Animasi & Multimedia",
+    label: "DKV & Multimedia",
     icon: Palette,
-    desc: "UI/UX, 3D Modeling, Video & Grafis",
+    desc: "UI/UX, 3D, Video & Grafis",
   },
   {
     id: "AKL_BISNIS",
-    label: "Akuntansi & Bisnis Digital",
+    label: "Akuntansi & Bisnis",
     icon: Briefcase,
     desc: "Business Plan, Finansial & E-Commerce",
   },
   {
     id: "MESIN_OTOMOTIF",
-    label: "Mesin, Otomotif & Mekatronika",
+    label: "Mesin & Robotika",
     icon: Wrench,
-    desc: "Robotika, IoT Hardware & Manufaktur",
+    desc: "IoT Hardware, Otomotif & Mekatronika",
   },
   {
     id: "KULINER_PARIWISATA",
-    label: "Tata Boga & Pariwisata",
+    label: "Tata Boga & Hotel",
     icon: Utensils,
-    desc: "Gastronomi, Pastry & Hospitality",
+    desc: "Gastronomi, Pastry & Pariwisata",
   },
   {
     id: "TTG_RISET",
-    label: "Teknologi Tepat Guna & Riset",
+    label: "Teknologi Terapan",
     icon: Lightbulb,
-    desc: "Karya Ilmiah Terapan & Solusi Nyata",
+    desc: "Karya Ilmiah & Solusi Inovasi",
   },
 ];
 
@@ -89,39 +86,34 @@ const ORGANIZER_TIERS: {
   badge: string;
   icon: typeof Landmark;
   desc: string;
-  badgeStyle: string;
 }[] = [
   {
     id: "ALL",
-    label: "Semua Penyelenggara Resmi",
+    label: "Semua Penyelenggara",
     badge: "Terverifikasi",
     icon: Award,
     desc: "Puspresnas, Politeknik Negeri & Industri",
-    badgeStyle: "bg-slate-100 text-slate-700 border-slate-200",
   },
   {
     id: "PEMERINTAH",
-    label: "Resmi Pemerintah / Ditjen Vokasi",
-    badge: "Terindeks SIMT Puspresnas",
+    label: "Pemerintah / Ditjen Vokasi",
+    badge: "SIMT Puspresnas",
     icon: Landmark,
-    desc: "Kemendikbud, Puspresnas, BPTI, LKS SMK & Dinas",
-    badgeStyle: "bg-amber-50 text-amber-900 border-amber-300",
+    desc: "Kemendikbud, Puspresnas & BPTI",
   },
   {
     id: "KAMPUS_VOKASI",
-    label: "Politeknik Negeri & Vokasi Kampus",
-    badge: "Tiket Emas SNBP Vokasi",
+    label: "Politeknik Negeri",
+    badge: "SNBP Vokasi",
     icon: GraduationCap,
-    desc: "PENS, Polban, PNJ, Polinema, UI & UGM Vokasi",
-    badgeStyle: "bg-indigo-50 text-indigo-900 border-indigo-200",
+    desc: "PENS, Polban, PNJ & Vokasi Kampus",
   },
   {
     id: "INDUSTRI",
-    label: "Industri Teknologi & Asosiasi LSP",
-    badge: "Nilai Tambah Portofolio UKK",
+    label: "Mitra Industri & LSP",
+    badge: "Portofolio UKK",
     icon: Building2,
-    desc: "Dicoding, AWS, CISCO, Astra & Asosiasi Kejuruan",
-    badgeStyle: "bg-emerald-50 text-emerald-900 border-emerald-300",
+    desc: "Dicoding, AWS, CISCO & LSP BNSP",
   },
 ];
 
@@ -221,22 +213,20 @@ export default function SmkFilterExplorer({ competitions }: SmkFilterExplorerPro
 
   return (
     <div className="space-y-8">
-      {/* ========================================================================= */}
-      {/* 2-TIER FILTER CONTROL PANEL                                              */}
-      {/* ========================================================================= */}
-      <section className="rounded-3xl border border-slate-200/90 bg-white p-5 sm:p-7 shadow-xs space-y-6">
+      {/* 2-TIER FILTER CONTROL PANEL */}
+      <section className="neo-box overflow-hidden bg-white border-2 border-black shadow-[4px_4px_0px_#000] p-5 sm:p-7 space-y-6">
         {/* Tier 1 Header */}
         <div className="space-y-3">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5 border-b border-slate-100 pb-3">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5 border-b-2 border-black/10 pb-3">
             <div className="flex items-center gap-2">
-              <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-indigo-600 text-[11px] font-black text-white">
+              <span className="flex h-6 w-6 items-center justify-center rounded border border-black bg-[#FBBC04] text-[11px] font-black text-black shadow-[1px_1px_0px_#000]">
                 1
               </span>
-              <h2 className="text-sm sm:text-base font-black text-slate-900 tracking-tight">
+              <h2 className="text-sm sm:text-base font-black text-black">
                 Tier 1: Pilih Bidang Keahlian / Jurusan SMK
               </h2>
             </div>
-            <span className="text-xs font-semibold text-indigo-700 bg-indigo-50 px-2.5 py-1 rounded-full w-fit">
+            <span className="neo-badge bg-[#FEF7E0] text-black px-2.5 py-1 text-xs">
               {activeMajorObj.label}
             </span>
           </div>
@@ -251,32 +241,28 @@ export default function SmkFilterExplorer({ competitions }: SmkFilterExplorerPro
                   key={opt.id}
                   type="button"
                   onClick={() => setSelectedMajor(opt.id)}
-                  className={`flex flex-col text-left p-3 rounded-2xl border transition-all cursor-pointer ${
+                  className={`flex flex-col text-left p-3 rounded-lg border-2 border-black transition-all cursor-pointer ${
                     isSelected
-                      ? "border-indigo-600 bg-indigo-50/70 shadow-xs ring-2 ring-indigo-500/20"
-                      : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50/60"
+                      ? "bg-[#FBBC04] text-black shadow-[3px_3px_0px_#000] font-black -translate-x-0.5 -translate-y-0.5"
+                      : "bg-[#FAF8F5] text-black hover:bg-white shadow-[2px_2px_0px_#000]"
                   }`}
                 >
                   <div className="flex items-center justify-between w-full mb-1.5">
                     <div
-                      className={`flex h-7 w-7 items-center justify-center rounded-xl ${
-                        isSelected ? "bg-indigo-600 text-white" : "bg-slate-100 text-slate-600"
+                      className={`flex h-7 w-7 items-center justify-center rounded border border-black ${
+                        isSelected ? "bg-white text-black" : "bg-white text-black"
                       }`}
                     >
                       <Icon className="h-4 w-4" />
                     </div>
                     {isSelected && (
-                      <CheckCircle2 className="h-4 w-4 text-indigo-600 shrink-0" />
+                      <CheckCircle2 className="h-4 w-4 text-black shrink-0" />
                     )}
                   </div>
-                  <span
-                    className={`text-xs font-bold leading-snug line-clamp-1 ${
-                      isSelected ? "text-indigo-950 font-extrabold" : "text-slate-800"
-                    }`}
-                  >
+                  <span className="text-xs font-black leading-snug line-clamp-1">
                     {opt.label}
                   </span>
-                  <span className="text-[10px] text-slate-500 mt-0.5 line-clamp-1">
+                  <span className="text-[10px] text-slate-700 font-medium mt-0.5 line-clamp-1">
                     {opt.desc}
                   </span>
                 </button>
@@ -287,16 +273,16 @@ export default function SmkFilterExplorer({ competitions }: SmkFilterExplorerPro
 
         {/* Tier 2 Header */}
         <div className="space-y-3 pt-2">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5 border-b border-slate-100 pb-3">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5 border-b-2 border-black/10 pb-3">
             <div className="flex items-center gap-2">
-              <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-emerald-600 text-[11px] font-black text-white">
+              <span className="flex h-6 w-6 items-center justify-center rounded border border-black bg-[#34A853] text-[11px] font-black text-white shadow-[1px_1px_0px_#000]">
                 2
               </span>
-              <h2 className="text-sm sm:text-base font-black text-slate-900 tracking-tight">
+              <h2 className="text-sm sm:text-base font-black text-black">
                 Tier 2: Kategori & Reputasi Penyelenggara Resmi
               </h2>
             </div>
-            <span className="text-xs font-semibold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full w-fit">
+            <span className="neo-badge bg-[#E6F4EA] text-[#137333] px-2.5 py-1 text-xs">
               {activeOrgObj.badge}
             </span>
           </div>
@@ -311,35 +297,33 @@ export default function SmkFilterExplorer({ competitions }: SmkFilterExplorerPro
                   key={tier.id}
                   type="button"
                   onClick={() => setSelectedOrganizerTier(tier.id)}
-                  className={`flex flex-col justify-between text-left p-3.5 rounded-2xl border transition-all cursor-pointer ${
+                  className={`flex flex-col justify-between text-left p-3.5 rounded-lg border-2 border-black transition-all cursor-pointer ${
                     isSelected
-                      ? "border-emerald-600 bg-emerald-50/70 shadow-xs ring-2 ring-emerald-500/20"
-                      : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50/60"
+                      ? "bg-[#34A853] text-white shadow-[3px_3px_0px_#000] -translate-x-0.5 -translate-y-0.5"
+                      : "bg-[#FAF8F5] text-black hover:bg-white shadow-[2px_2px_0px_#000]"
                   }`}
                 >
                   <div>
                     <div className="flex items-center justify-between mb-2">
                       <div
-                        className={`flex h-7 w-7 items-center justify-center rounded-xl ${
-                          isSelected ? "bg-emerald-600 text-white" : "bg-slate-100 text-slate-600"
+                        className={`flex h-7 w-7 items-center justify-center rounded border border-black ${
+                          isSelected ? "bg-white text-black" : "bg-white text-black"
                         }`}
                       >
                         <Icon className="h-4 w-4" />
                       </div>
                       <span
-                        className={`text-[9px] font-bold px-2 py-0.5 rounded-full border ${tier.badgeStyle}`}
+                        className={`neo-badge text-[9px] px-1.5 py-0.2 ${
+                          isSelected ? "bg-black text-white" : "bg-white text-black"
+                        }`}
                       >
                         {tier.badge}
                       </span>
                     </div>
-                    <span
-                      className={`text-xs font-bold leading-tight block ${
-                        isSelected ? "text-emerald-950 font-extrabold" : "text-slate-800"
-                      }`}
-                    >
+                    <span className="text-xs font-black leading-tight block">
                       {tier.label}
                     </span>
-                    <p className="text-[10px] text-slate-500 mt-1 leading-snug line-clamp-2">
+                    <p className={`text-[10px] mt-1 leading-snug line-clamp-2 ${isSelected ? "text-emerald-100" : "text-slate-600"}`}>
                       {tier.desc}
                     </p>
                   </div>
@@ -350,21 +334,21 @@ export default function SmkFilterExplorer({ competitions }: SmkFilterExplorerPro
         </div>
 
         {/* Quick Search & Free Toggle Bar */}
-        <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-t border-slate-100">
+        <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-t-2 border-black/10">
           <div className="relative flex-1">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 pointer-events-none" />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-black pointer-events-none" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Cari nama kompetensi (misal: LKS, IoT, Animasi, Web Design)..."
-              className="w-full rounded-2xl border border-slate-200 bg-slate-50/50 py-2.5 pl-10 pr-4 text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 focus:border-indigo-500 focus:bg-white focus:outline-none shadow-2xs"
+              className="w-full rounded-lg border-2 border-black bg-[#FAF8F5] py-2.5 pl-10 pr-4 text-xs font-bold text-black placeholder:text-slate-500 focus:bg-white focus:outline-none focus:shadow-[2px_2px_0px_#000]"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery("")}
-                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-semibold text-slate-400 hover:text-slate-600 cursor-pointer"
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-black text-[#EA4335] hover:underline cursor-pointer"
               >
                 Hapus
               </button>
@@ -375,14 +359,14 @@ export default function SmkFilterExplorer({ competitions }: SmkFilterExplorerPro
             <button
               type="button"
               onClick={() => setFreeOnly((prev) => !prev)}
-              className={`inline-flex items-center gap-1.5 rounded-xl border px-3.5 py-2 text-xs font-bold transition-all cursor-pointer ${
+              className={`neo-btn px-3.5 py-2 text-xs font-black cursor-pointer flex items-center gap-1.5 ${
                 freeOnly
-                  ? "bg-emerald-600 border-emerald-600 text-white shadow-xs"
-                  : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
+                  ? "bg-[#34A853] text-white shadow-[2px_2px_0px_#000]"
+                  : "bg-white text-black shadow-[2px_2px_0px_#000]"
               }`}
             >
               <CheckCircle2 className="h-3.5 w-3.5" />
-              <span>Hanya yang Gratis (Rp 0)</span>
+              <span>Hanya Gratis</span>
             </button>
 
             {(selectedMajor !== "ALL" ||
@@ -397,42 +381,40 @@ export default function SmkFilterExplorer({ competitions }: SmkFilterExplorerPro
                   setSearchQuery("");
                   setFreeOnly(false);
                 }}
-                className="text-xs font-bold text-slate-500 hover:text-slate-800 underline px-2 cursor-pointer"
+                className="text-xs font-black text-[#EA4335] hover:underline px-2 cursor-pointer font-mono"
               >
-                Reset Filter
+                [Reset]
               </button>
             )}
           </div>
         </div>
       </section>
 
-      {/* ========================================================================= */}
-      {/* RESULTS LISTING                                                           */}
-      {/* ========================================================================= */}
+      {/* RESULTS LISTING */}
       <section className="space-y-4">
         {/* Results Metadata Summary */}
         <div className="flex items-center justify-between px-1">
           <div className="flex items-center gap-2">
-            <span className="flex h-2 w-2 rounded-full bg-indigo-600" />
-            <h3 className="text-sm font-bold text-slate-900">
+            <span className="flex h-2 w-2 rounded-full bg-[#4285F4]" />
+            <h3 className="text-sm font-black text-black">
               Menampilkan {filteredCompetitions.length} Lomba Kejuruan Terpilih
             </h3>
           </div>
-          <div className="text-xs text-slate-500">
-            Bidang: <strong className="text-slate-800">{activeMajorObj.label}</strong>
+          <div className="text-xs font-mono font-bold text-slate-600">
+            Bidang: <strong className="text-black">{activeMajorObj.label}</strong>
           </div>
         </div>
 
         {filteredCompetitions.length === 0 ? (
-          <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-slate-200 bg-white py-16 text-center px-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600 mb-3">
+          <div className="neo-box flex flex-col items-center justify-center bg-white py-16 text-center px-4">
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg border-2 border-black bg-[#FEF7E0] text-black mb-3 shadow-[2px_2px_0px_#000]">
               <GraduationCap className="h-6 w-6" />
             </div>
-            <h4 className="text-base font-bold text-slate-900">
+            <h4 className="text-base font-black text-black">
               Belum ada lomba yang cocok dengan kombinasi 2 filter ini
             </h4>
-            <p className="mt-1 text-xs text-slate-500 max-w-md">
-              Coba ganti pilihan kategori penyelenggara ke "Semua Penyelenggara" atau nonaktifkan filter gratis untuk melihat opsi kompetisi lainnya.
+            <p className="mt-1 text-xs text-slate-600 max-w-md font-medium">
+              Coba ganti pilihan kategori penyelenggara ke &quot;Semua Penyelenggara&quot; atau nonaktifkan filter gratis untuk melihat opsi kompetisi lainnya.
             </p>
             <button
               type="button"
@@ -442,13 +424,13 @@ export default function SmkFilterExplorer({ competitions }: SmkFilterExplorerPro
                 setFreeOnly(false);
                 setSearchQuery("");
               }}
-              className="mt-4 rounded-xl border border-indigo-200 bg-indigo-50 px-4 py-2 text-xs font-bold text-indigo-700 hover:bg-indigo-100 transition-colors cursor-pointer"
+              className="neo-btn neo-btn-blue mt-4 px-4 py-2 text-xs font-black cursor-pointer"
             >
               Tampilkan Seluruh Lomba Vokasi
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {filteredCompetitions.map((comp) => (
               <CompetitionCard key={comp.id} competition={comp} />
             ))}
@@ -456,27 +438,25 @@ export default function SmkFilterExplorer({ competitions }: SmkFilterExplorerPro
         )}
       </section>
 
-      {/* ========================================================================= */}
-      {/* CALL TO ACTION: KOLABORASI TIM SMK                                        */}
-      {/* ========================================================================= */}
-      <section className="relative overflow-hidden rounded-3xl border border-indigo-200 bg-gradient-to-r from-indigo-900 via-indigo-800 to-slate-900 p-6 sm:p-8 text-white shadow-md">
-        <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+      {/* CALL TO ACTION: KOLABORASI TIM SMK */}
+      <section className="neo-box bg-white border-2 border-black p-6 sm:p-8 shadow-[6px_6px_0px_#000]">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="space-y-2 max-w-xl text-center md:text-left">
-            <div className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-[11px] font-bold text-indigo-200 backdrop-blur-xs">
-              <Users className="h-3.5 w-3.5 text-indigo-300" />
-              <span>Butuh Rekan Tim Beda Jurusan?</span>
+            <div className="neo-badge bg-[#E8F0FE] text-[#1967D2] px-3 py-1 text-xs">
+              <Users className="h-3.5 w-3.5 mr-1 inline-block" />
+              <span>KOLABORASI TIM LINTAS JURUSAN</span>
             </div>
-            <h3 className="text-xl sm:text-2xl font-black text-white">
+            <h3 className="text-xl sm:text-2xl font-black text-black">
               Anak RPL Butuh Desainer DKV? Atau Butuh Pitcher Akuntansi?
             </h3>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
               Di naviable.id, kamu bisa rekrut anggota tim lintas SMK dan jurusan se-Indonesia untuk persiapan Hackathon, LKS SMK, dan Lomba Inovasi Kejuruan.
             </p>
           </div>
 
           <Link
             href="/cari-tim"
-            className="btn-coral inline-flex items-center gap-2 rounded-2xl px-6 py-3.5 text-xs sm:text-sm font-bold text-white shadow-md active:scale-95 transition-all shrink-0"
+            className="neo-btn neo-btn-yellow px-6 py-3.5 text-xs sm:text-sm font-black flex items-center gap-2 shrink-0"
           >
             <span>Buka Bursa Tim SMK</span>
             <ArrowRight className="h-4 w-4" />

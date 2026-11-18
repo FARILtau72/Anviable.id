@@ -3,36 +3,32 @@
 @theme {
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
-  --color-border: #e2e8f0;
-  --color-input: #f8fafc;
-  --color-ring: #4f46e5;
-  --color-background: #ffffff;
-  --color-foreground: #0f172a;
+  --color-border: #000000;
+  --color-input: #ffffff;
+  --color-ring: #4285f4;
+  --color-background: #faf8f5;
+  --color-foreground: #18181b;
 
-  --color-primary: #4338ca;
+  --color-primary: #4285f4;
   --color-primary-foreground: #ffffff;
 
-  --color-coral: #ff6b00;
-  --color-coral-hover: #e65c00;
+  --color-gdg-blue: #4285f4;
+  --color-gdg-red: #ea4335;
+  --color-gdg-yellow: #fbbc04;
+  --color-gdg-green: #34a853;
 
-  --color-secondary: #f1f5f9;
-  --color-secondary-foreground: #1e293b;
+  --color-secondary: #f4f0e8;
+  --color-secondary-foreground: #18181b;
 
-  --color-muted: #f8fafc;
-  --color-muted-foreground: #64748b;
+  --color-muted: #f4f0e8;
+  --color-muted-foreground: #71717a;
 
   --color-card: #ffffff;
-  --color-card-foreground: #0f172a;
+  --color-card-foreground: #18181b;
 
-  --color-popover: #ffffff;
-  --color-popover-foreground: #0f172a;
-
-  --color-warning: #f59e0b;
-  --color-success: #10b981;
-}
-
-* {
-  border-color: #e2e8f0;
+  --color-warning: #fbbc04;
+  --color-success: #34a853;
+  --color-danger: #ea4335;
 }
 
 html,
@@ -42,8 +38,8 @@ body {
 }
 
 body {
-  background-color: #f8fafc;
-  color: #0f172a;
+  background-color: #faf8f5;
+  color: #18181b;
   min-height: 100vh;
   position: relative;
   -webkit-font-smoothing: antialiased;
@@ -59,59 +55,179 @@ body {
   display: none;
 }
 
-/* Clean Architectural Background Accent (No AI Radial Glow) */
-.hero-glow-layer {
-  display: none;
+/* ========================================================================= */
+/* GDGoC / Neo-Brutalist Retro Pixel Design System Tokens                     */
+/* ========================================================================= */
+
+/* Hard Drop Shadow Boxes */
+.neo-box {
+  background: #ffffff;
+  border: 2px solid #000000;
+  box-shadow: 4px 4px 0px #000000;
+  border-radius: 12px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Base Card Styling (Matte, High-Contrast, Subdued Elevation per R-12) */
+.neo-box:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 6px 6px 0px #000000;
+}
+
+.neo-box-sm {
+  background: #ffffff;
+  border: 2px solid #000000;
+  box-shadow: 2px 2px 0px #000000;
+  border-radius: 8px;
+}
+
+/* Tactile Interactive Buttons */
+.neo-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #000000;
+  font-weight: 800;
+  border-radius: 10px;
+  transition: all 0.15s ease-out;
+  cursor: pointer;
+  user-select: none;
+}
+
+.neo-btn:hover {
+  transform: translate(-1px, -1px);
+}
+
+.neo-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #000000 !important;
+}
+
+.neo-btn-blue {
+  background-color: #4285f4;
+  color: #ffffff;
+  box-shadow: 3px 3px 0px #000000;
+}
+.neo-btn-blue:hover {
+  box-shadow: 5px 5px 0px #000000;
+}
+
+.neo-btn-yellow {
+  background-color: #fbbc04;
+  color: #18181b;
+  box-shadow: 3px 3px 0px #000000;
+}
+.neo-btn-yellow:hover {
+  box-shadow: 5px 5px 0px #000000;
+}
+
+.neo-btn-green {
+  background-color: #34a853;
+  color: #ffffff;
+  box-shadow: 3px 3px 0px #000000;
+}
+.neo-btn-green:hover {
+  box-shadow: 5px 5px 0px #000000;
+}
+
+.neo-btn-red {
+  background-color: #ea4335;
+  color: #ffffff;
+  box-shadow: 3px 3px 0px #000000;
+}
+.neo-btn-red:hover {
+  box-shadow: 5px 5px 0px #000000;
+}
+
+.neo-btn-white {
+  background-color: #ffffff;
+  color: #18181b;
+  box-shadow: 3px 3px 0px #000000;
+}
+.neo-btn-white:hover {
+  background-color: #f4f0e8;
+  box-shadow: 5px 5px 0px #000000;
+}
+
+/* Neo-Brutalist Badges */
+.neo-badge {
+  display: inline-flex;
+  align-items: center;
+  border: 1.5px solid #000000;
+  font-weight: 800;
+  box-shadow: 2px 2px 0px #000000;
+  border-radius: 6px;
+  line-height: 1;
+}
+
+/* Retro Window Header / Tab Bar */
+.retro-window-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid #000000;
+  padding: 6px 12px;
+  background-color: #f4f0e8;
+  font-family: monospace;
+  font-size: 11px;
+  font-weight: 700;
+  user-select: none;
+}
+
+.retro-dots {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.retro-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1px solid #000000;
+}
+
+/* Legacy utility overrides mapped to GDGoC Neo Theme */
 .card-clean {
   background: #ffffff;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.05);
-  transition: all 0.2s ease-in-out;
+  border: 2px solid #000000;
+  box-shadow: 3px 3px 0px #000000;
+  border-radius: 12px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .card-clean:hover {
-  border-color: #cbd5e1;
-  box-shadow: 0 6px 16px -2px rgba(15, 23, 42, 0.08);
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0px #000000;
 }
 
-/* High-Contrast Brand Typography (No blurry multi-color AI gradients per R-01) */
-.brand-accent-text {
-  color: #3730a3;
-}
-
-.gradient-ptn {
-  color: #3730a3;
-  font-weight: 900;
-}
-
-.gradient-text {
-  color: #1e293b;
-  font-weight: 800;
-}
-
-/* High-contrast Action CTA button (Deliberate Warm Accent) */
 .btn-coral {
-  background-color: #ea580c;
-  color: #ffffff;
-  font-weight: 700;
-  transition: all 0.15s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fbbc04;
+  color: #18181b;
+  border: 2px solid #000000;
+  font-weight: 800;
+  box-shadow: 3px 3px 0px #000000;
+  border-radius: 10px;
+  transition: all 0.15s ease-out;
+  cursor: pointer;
 }
 
 .btn-coral:hover {
-  background-color: #c2410c;
-  box-shadow: 0 4px 12px -2px rgba(234, 88, 12, 0.3);
+  background-color: #f59e0b;
+  box-shadow: 5px 5px 0px #000000;
+  transform: translate(-1px, -1px);
 }
 
 .btn-coral:active {
-  transform: translateY(0);
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #000000;
 }
 
 /* Accessible Focus Ring per R-32 */
 :focus-visible {
-  outline: 2px solid #4338ca;
+  outline: 3px solid #000000;
   outline-offset: 2px;
 }
 

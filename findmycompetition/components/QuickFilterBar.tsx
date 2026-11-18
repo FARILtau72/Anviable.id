@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
-import { Zap, Gift, Trophy, Sparkles, SlidersHorizontal } from "lucide-react";
+import { Zap, Gift, Trophy, SlidersHorizontal } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function QuickFilterBar({
@@ -37,7 +37,7 @@ export default function QuickFilterBar({
     currentAudience === "all";
 
   return (
-    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-200 pb-3">
+    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b-2 border-black/10 pb-3">
       {/* Pills Horizontal Scroll on Mobile */}
       <div className="-mx-4 flex items-center gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0 sm:pb-0 scrollbar-none">
         <button
@@ -46,10 +46,10 @@ export default function QuickFilterBar({
             setFilter({ fee: null, level: null, audience: null })
           }
           className={cn(
-            "inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all cursor-pointer",
+            "neo-btn px-3.5 py-1.5 text-xs font-black shadow-[2px_2px_0px_#000] cursor-pointer",
             isAll
-              ? "bg-slate-900 text-white shadow-xs"
-              : "bg-white border border-slate-200 text-slate-600 hover:border-slate-300 hover:text-slate-900 shadow-2xs"
+              ? "bg-black text-white"
+              : "bg-white text-black hover:bg-[#FAF8F5]"
           )}
         >
           Semua ({totalCount})
@@ -63,14 +63,14 @@ export default function QuickFilterBar({
             })
           }
           className={cn(
-            "inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all cursor-pointer",
+            "neo-btn px-3.5 py-1.5 text-xs font-black shadow-[2px_2px_0px_#000] cursor-pointer flex items-center gap-1.5",
             currentFee === "free"
-              ? "bg-emerald-600 text-white shadow-xs"
-              : "bg-white border border-slate-200 text-slate-600 hover:border-slate-300 hover:text-slate-900 shadow-2xs"
+              ? "bg-[#34A853] text-white"
+              : "bg-white text-black hover:bg-[#FAF8F5]"
           )}
         >
-          <Gift className="h-3 w-3 text-emerald-500" />
-          Pendaftaran Gratis
+          <Gift className="h-3.5 w-3.5" />
+          <span>Pendaftaran Gratis</span>
         </button>
 
         <button
@@ -81,14 +81,14 @@ export default function QuickFilterBar({
             })
           }
           className={cn(
-            "inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all cursor-pointer",
+            "neo-btn px-3.5 py-1.5 text-xs font-black shadow-[2px_2px_0px_#000] cursor-pointer flex items-center gap-1.5",
             currentLevel === "NASIONAL"
-              ? "bg-indigo-700 text-white shadow-xs"
-              : "bg-white border border-slate-200 text-slate-600 hover:border-slate-300 hover:text-slate-900 shadow-2xs"
+              ? "bg-[#4285F4] text-white"
+              : "bg-white text-black hover:bg-[#FAF8F5]"
           )}
         >
-          <Trophy className="h-3 w-3 text-indigo-500" />
-          Tingkat Nasional
+          <Trophy className="h-3.5 w-3.5" />
+          <span>Tingkat Nasional</span>
         </button>
 
         <button
@@ -99,20 +99,20 @@ export default function QuickFilterBar({
             })
           }
           className={cn(
-            "inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all cursor-pointer",
+            "neo-btn px-3.5 py-1.5 text-xs font-black shadow-[2px_2px_0px_#000] cursor-pointer flex items-center gap-1.5",
             currentAudience === "SMK"
-              ? "bg-orange-600 text-white shadow-xs"
-              : "bg-white border border-slate-200 text-slate-600 hover:border-slate-300 hover:text-slate-900 shadow-2xs"
+              ? "bg-[#FBBC04] text-black"
+              : "bg-white text-black hover:bg-[#FAF8F5]"
           )}
         >
-          <Zap className="h-3 w-3 text-orange-500" />
-          Khusus SMK (WorldSkills / LKS)
+          <Zap className="h-3.5 w-3.5" />
+          <span>Khusus SMK (Vokasi / LKS)</span>
         </button>
       </div>
 
-      <div className="hidden sm:flex items-center gap-1 text-xs text-slate-500">
+      <div className="hidden sm:flex items-center gap-1 text-xs font-mono font-bold text-slate-600">
         <SlidersHorizontal className="h-3.5 w-3.5" />
-        <span>Gunakan sidebar untuk saring lebih detail</span>
+        <span>Gunakan filter sidebar untuk detail</span>
       </div>
     </div>
   );

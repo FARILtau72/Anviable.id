@@ -13,7 +13,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: "#4338ca",
+  themeColor: "#4285f4",
 };
 
 export const metadata: Metadata = {
@@ -53,7 +53,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id" className={inter.variable}>
-      <body className="min-h-screen font-sans antialiased text-slate-900 bg-[#f8fafc] selection:bg-indigo-500/20 selection:text-indigo-900">
+      <body className="min-h-screen font-sans antialiased text-slate-950 bg-[#faf8f5] selection:bg-[#fbbc04] selection:text-black">
         <Navbar />
 
         <main className="mx-auto min-h-[calc(100vh-4rem-4.5rem)] max-w-7xl px-4 pt-6 pb-24 sm:px-6 lg:pb-6">

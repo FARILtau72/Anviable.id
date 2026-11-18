@@ -12,13 +12,10 @@ interface NaviableLogoProps {
 }
 
 /**
- * Bespoke geometric monogram mark for Naviable.id
- * Precision architectural 'N' with forward momentum geometry.
- * Designed to avoid generic AI-slop (no random sparkles, rainbow gradients, or stock trophy icons).
+ * Geometric monogram mark for Naviable.id with GDGoC 4-color palette
  */
 export function NaviableMark({
   className = "h-5 w-5",
-  variant = "dark",
 }: {
   className?: string;
   variant?: "dark" | "light";
@@ -31,28 +28,35 @@ export function NaviableMark({
       className={cn("shrink-0", className)}
       aria-hidden="true"
     >
-      {/* Precision Geometric Monogram N */}
-      {/* Left Pillar */}
+      {/* Left Pillar: Google Blue */}
       <path
         d="M6 7.5C6 6.67 6.67 6 7.5 6H11V26H7.5C6.67 26 6 25.33 6 24.5V7.5Z"
-        fill={variant === "light" ? "#FFFFFF" : "#1E1B4B"}
+        fill="#4285F4"
+        stroke="#000000"
+        strokeWidth="1.5"
       />
-      {/* Dynamic Diagonal Navigation Beam */}
+      {/* Diagonal Navigation Beam: Google Yellow */}
       <path
-        d="M10.8 6H13.6L22.2 19V26H19.4L10.8 13V6Z"
-        fill="#4F46E5"
+        d="M10.8 6H14L22.2 19.5V26H19L10.8 12.5V6Z"
+        fill="#FBBC04"
+        stroke="#000000"
+        strokeWidth="1.5"
       />
-      {/* Right Pillar with upward momentum */}
+      {/* Right Pillar: Google Green */}
       <path
         d="M21 6H24.5C25.33 6 26 6.67 26 7.5V24.5C26 25.33 25.33 26 24.5 26H21V6Z"
-        fill={variant === "light" ? "#E0E7FF" : "#312E81"}
+        fill="#34A853"
+        stroke="#000000"
+        strokeWidth="1.5"
       />
-      {/* Subtle precision waypoint accent on apex */}
+      {/* Waypoint Dot: Google Red */}
       <circle
         cx="23.5"
         cy="8.5"
-        r="1.75"
-        fill="#38BDF8"
+        r="2.5"
+        fill="#EA4335"
+        stroke="#000000"
+        strokeWidth="1"
       />
     </svg>
   );
@@ -69,19 +73,19 @@ export default function NaviableLogo({
   const sizeConfig = {
     sm: {
       box: "h-8 w-8 rounded-lg",
-      icon: "h-4.5 w-4.5",
+      icon: "h-5 w-5",
       title: "text-base",
       tagline: "text-[8px]",
     },
     md: {
-      box: "h-9.5 w-9.5 rounded-xl",
-      icon: "h-5 w-5",
+      box: "h-9.5 w-9.5 rounded-lg",
+      icon: "h-5.5 w-5.5",
       title: "text-lg",
       tagline: "text-[9px]",
     },
     lg: {
-      box: "h-11 w-11 rounded-2xl",
-      icon: "h-6 w-6",
+      box: "h-11 w-11 rounded-xl",
+      icon: "h-6.5 w-6.5",
       title: "text-xl",
       tagline: "text-[10px]",
     },
@@ -91,36 +95,38 @@ export default function NaviableLogo({
 
   const content = (
     <div className={cn("group flex items-center gap-2.5 select-none", className)}>
-      {/* Mark Badge: Crisp, solid, high-contrast container */}
+      {/* Mark Badge: Neo-Brutalist White Box with 2px Black Border & Hard Shadow */}
       <div
         className={cn(
-          "relative flex items-center justify-center border transition-all duration-200 group-hover:scale-105 group-hover:shadow-md",
-          currentSize.box,
-          variant === "light"
-            ? "bg-slate-900 border-slate-800 shadow-slate-950/20"
-            : "bg-white border-slate-200/90 shadow-xs"
+          "relative flex items-center justify-center border-2 border-black bg-white shadow-[2px_2px_0px_#000] transition-transform duration-150 group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 group-hover:shadow-[3px_3px_0px_#000]",
+          currentSize.box
         )}
       >
-        <NaviableMark className={currentSize.icon} variant={variant === "light" ? "light" : "dark"} />
+        <NaviableMark className={currentSize.icon} />
       </div>
 
       {/* Wordmark */}
       <div className="flex flex-col">
-        <span
-          className={cn(
-            "font-black tracking-tight leading-none transition-colors",
-            currentSize.title,
-            variant === "light" ? "text-white" : "text-slate-900"
-          )}
-        >
-          naviable<span className="text-indigo-600">.id</span>
-        </span>
+        <div className="flex items-center gap-1.5">
+          <span
+            className={cn(
+              "font-black tracking-tight leading-none text-black",
+              currentSize.title,
+              variant === "light" && "text-white"
+            )}
+          >
+            naviable<span className="text-[#4285F4]">.id</span>
+          </span>
+          <span className="inline-block rounded-xs bg-[#FBBC04] border border-black px-1 py-0.2 text-[8px] font-black uppercase text-black shadow-[1px_1px_0px_#000]">
+            KOMPETISI
+          </span>
+        </div>
         {showTagline && (
           <span
             className={cn(
-              "font-bold uppercase tracking-wider mt-1",
+              "font-mono font-bold uppercase tracking-wider mt-1 text-slate-500",
               currentSize.tagline,
-              variant === "light" ? "text-slate-400" : "text-slate-400"
+              variant === "light" && "text-slate-400"
             )}
           >
             {taglineText}
@@ -132,7 +138,7 @@ export default function NaviableLogo({
 
   if (href) {
     return (
-      <Link href={href} className="inline-block shrink-0 focus-visible:outline-indigo-600 focus-visible:outline-2 rounded-lg">
+      <Link href={href} className="inline-block shrink-0 focus-visible:outline-black focus-visible:outline-2 rounded-lg">
         {content}
       </Link>
     );

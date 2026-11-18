@@ -12,9 +12,9 @@ function getStatus(deadline: Date | string): { type: StatusType; label: string }
 }
 
 const STATUS_STYLES: Record<StatusType, string> = {
-  open: "bg-emerald-50 text-emerald-700 border-emerald-300 shadow-xs",
-  closing: "bg-amber-50 text-amber-800 border-amber-300 shadow-xs",
-  closed: "bg-rose-50 text-rose-700 border-rose-300 shadow-xs",
+  open: "bg-[#34A853] text-white border-2 border-black shadow-[2px_2px_0px_#000]",
+  closing: "bg-[#FBBC04] text-black border-2 border-black shadow-[2px_2px_0px_#000]",
+  closed: "bg-[#EA4335] text-white border-2 border-black shadow-[2px_2px_0px_#000]",
 };
 
 const STATUS_ICONS: Record<StatusType, typeof Clock> = {
@@ -36,12 +36,12 @@ export default function StatusBadge({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold backdrop-blur-md transition-all",
+        "inline-flex items-center gap-1 rounded-md px-2.5 py-1 text-xs font-black uppercase transition-all tracking-wide",
         STATUS_STYLES[type],
         className
       )}
     >
-      <Icon className="h-3 w-3" />
+      <Icon className="h-3 w-3 stroke-[2.5]" />
       {label}
     </span>
   );

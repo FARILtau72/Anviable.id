@@ -104,23 +104,23 @@ export default function BookmarkButton({
         toggle(competition);
       }}
       className={cn(
-        "group relative inline-flex items-center justify-center rounded-xl transition-all duration-200 cursor-pointer",
+        "group relative inline-flex items-center justify-center rounded-lg border-2 border-black transition-all cursor-pointer",
+        saved
+          ? "bg-[#FBBC04] text-black shadow-[2px_2px_0px_#000]"
+          : "bg-white text-black shadow-[2px_2px_0px_#000] hover:bg-[#FAF8F5]",
         size === "lg"
-          ? saved
-            ? "border border-indigo-200 bg-indigo-50 text-indigo-700 shadow-xs"
-            : "border border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50"
-          : saved
-          ? "border border-amber-400 bg-amber-400 text-slate-950 shadow-md"
-          : "border border-white/20 bg-black/50 text-white backdrop-blur-md hover:bg-black/70",
-        size === "lg" ? "gap-2.5 px-5 py-3 text-sm font-bold w-full" : size === "md" ? "h-11 w-11" : "h-8 w-8",
+          ? "gap-2.5 px-5 py-3 text-sm font-black w-full"
+          : size === "md"
+          ? "h-10 w-10"
+          : "h-8 w-8",
         className
       )}
       aria-label={saved ? "Hapus dari tersimpan" : "Simpan lomba"}
     >
       {saved ? (
-        <BookmarkCheck className="h-4 w-4 fill-current" />
+        <BookmarkCheck className="h-4 w-4 fill-current stroke-[2.5]" />
       ) : (
-        <Bookmark className="h-4 w-4 transition-transform group-hover:scale-110" />
+        <Bookmark className="h-4 w-4 stroke-[2.5] transition-transform group-hover:scale-110" />
       )}
       {size === "lg" && (
         <span>{saved ? "Tersimpan di Bookmark" : "Simpan ke Bookmark"}</span>
